@@ -1,0 +1,12 @@
+{
+    "name": "sagara/resto",
+    "description": "Sistem Informasi Restoran Sagara Ikan (PHP native + MySQL). Core features are zero-dependency; Composer is only needed for optional PDF export.",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.0"
+    },
+    "suggest": {
+        "dompdf/dompdf": "Enables PDF export of sales reports (run: composer require dompdf/dompdf)"
+    }
+}
