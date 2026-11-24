@@ -1,0 +1,42 @@
+# Sagara Resto — front controller + hardening
+
+# Default document
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Route everything that is NOT a real file/dir through index.php,
+    # preserving the path as PATH_INFO (pretty URLs). PATH_INFO URLs
+    # (index.php/...) also work without this rule.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+</IfModule>
+
+# If the /app folder was flattened INTO public_html, block direct web access to it.
+RedirectMatch 403 ^/?app/.*$
+RedirectMatch 403 ^/?database/.*$
+
+# Do not expose the raw static landing backup or VCS/config files.
+<FilesMatch "\.(sql|md|sample\.php|dist|log|sh|py)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Basic security headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Prevent executing uploaded scripts in the uploads directory
+<IfModule mod_rewrite.c>
+    RewriteRule ^assets/uploads/.*\.(php|phtml|phar|pl|py|cgi)$ - [F]
+</IfModule>

@@ -1,0 +1,21 @@
+# Real configuration (contains DB credentials) — never commit.
+/app/config/config.php
+
+# Composer (optional libs only; core app is zero-dependency)
+/vendor/
+composer.lock
+
+# User-uploaded content
+/public_html/assets/uploads/*
+!/public_html/assets/uploads/.gitkeep
+!/public_html/assets/uploads/.htaccess
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log
+
+# Python tooling for docs generation
+docs/.venv/
+__pycache__/
+*.pyc
