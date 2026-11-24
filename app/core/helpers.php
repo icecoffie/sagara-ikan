@@ -172,3 +172,41 @@ function query_with(array $overrides = []): string
 {
     return http_build_query(array_merge($_GET, $overrides));
 }
+
+function flash_errors(array $errors): void
+{
+    $_SESSION['_errors'] = $errors;
+}
+
+function errors(): array
+{
+    $e = $_SESSION['_errors'] ?? [];
+    unset($_SESSION['_errors']);
+    return $e;
+}
+
+function slugify(string $text): string
+{
+    $text = strtolower(trim($text));
+    $text = preg_replace('/[^a-z0-9]+/', '-', $text);
+    return trim($text, '-') ?: 'item';
+}
+
+function order_number(): string
+{
+    return 'ORD-' . date('Ymd') . '-' . strtoupper(substr(bin2hex(random_bytes(3)), 0, 5));
+}
+
+function menu_image_url(?string $image): string
+{
+    if ($image) {
+        $base = ROOT_PATH . '/public_html/';
+        if (is_file($base . 'assets/uploads/' . $image)) {
+            return asset('assets/uploads/' . $image);
+        }
+        if (is_file($base . 'assets/' . $image)) {
+            return asset('assets/' . $image);
+        }
+    }
+    return asset('assets/all.png');
+}
