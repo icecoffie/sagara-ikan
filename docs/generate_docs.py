@@ -164,7 +164,7 @@ def take_screenshots(base_url):
                     page = c.new_page()
                     page.goto(base_url + "/index.php/", wait_until="networkidle")
                     for idx in (0, 3):
-                        btns = page.query_selector_all(".menu-grid .order-form button")
+                        btns = page.query_selector_all(".order-form button")
                         if idx < len(btns):
                             btns[idx].click()
                             page.wait_for_load_state("networkidle")

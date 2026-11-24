@@ -289,3 +289,26 @@ details[open] summary ~ *{animation:open 1s ease-in-out}
   /* Map sedikit lebih kecil di layar kecil */
   .map{ height:180px }
 }
+
+/* ===== Tambahan: cart & login di nav, tombol pesan, toast ===== */
+.order-form{margin:0}
+.menu-item img{height:190px;object-fit:cover}
+.menu-item .title{padding:0 12px}
+.menu-item .order{padding:0 12px 14px}
+.btn-menu{cursor:pointer;font-family:inherit;border-radius:5px}
+.btn-menu:hover{background:var(--clr-primary);color:#fff}
+
+.menu ul li a.nav-cart{position:relative;display:inline-flex;align-items:center;gap:5px}
+.menu ul li a.nav-cart ion-icon{font-size:18px}
+.menu a.nav-cart:hover{border-bottom:0}
+.cart-badge{position:absolute;top:-8px;right:-14px;background:var(--clr-primary);color:#fff;font-size:11px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:grid;place-items:center;padding:0 4px}
+.menu ul li a.nav-login{background:var(--clr-primary);color:#fff;border-radius:6px;padding:8px 16px}
+.menu ul li a.nav-login:hover{background:#1b86d6;border-bottom:0;color:#fff}
+
+.toast{position:fixed;top:92px;left:50%;transform:translateX(-50%);z-index:999;background:#1f9d55;color:#fff;padding:12px 24px;border-radius:30px;font-weight:600;box-shadow:0 12px 28px rgba(0,0,0,.22);transition:opacity .45s,transform .45s}
+.toast.error{background:#e0384e}
+.toast.info{background:var(--clr-primary)}
+.toast.hide{opacity:0;transform:translateX(-50%) translateY(-16px)}
+
+.footer .quick-links a,.footer .get-in-touch a{color:inherit}
+.footer .quick-links a:hover{color:#fff}
