@@ -19,9 +19,23 @@ class CartController extends Controller
             redirect('');
         }
         cart_add($id, (int) post('qty', 1));
-        flash('success', e($menu['name']) . ' ditambahkan ke keranjang.');
+
+        if (($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest') {
+            $this->json(['ok' => true, 'count' => cart_count(), 'name' => $menu['name']]);
+        }
+
+        flash('success', $menu['name'] . ' ditambahkan ke keranjang.');
         $back = (string) post('back', '');
-        redirect($back === 'cart' ? 'cart' : '');
+        if ($back === 'cart') {
+            redirect('cart');
+        }
+        $ref = $_SERVER['HTTP_REFERER'] ?? '';
+        $host = $_SERVER['HTTP_HOST'] ?? '';
+        if ($ref !== '' && $host !== '' && strpos($ref, '//' . $host) !== false) {
+            header('Location: ' . $ref);
+            exit;
+        }
+        redirect('');
     }
 
     public function update(): void

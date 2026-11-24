@@ -44,6 +44,7 @@
   <script>
     (function(){ var n=document.getElementById('nav'); window.addEventListener('scroll',function(){n.classList.toggle('scrolled',window.scrollY>20);},{passive:true}); })();
   </script>
+  <script src="<?= asset('assets/js/shop.js') ?>"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

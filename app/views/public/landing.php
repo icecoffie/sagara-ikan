@@ -142,7 +142,7 @@
         <span class="pill">Ulasan Pelanggan</span>
         <h2 class="sec-title">Setiap kunjungan jadi kenangan</h2>
         <p class="sec-sub">Ribuan pelanggan mempercayai Sagara Ikan untuk momen spesial mereka.</p>
-        <img class="reviews-photo" src="<?= asset('assets/review.png') ?>" alt="Suasana makan di Sagara Ikan">
+        <img class="reviews-photo" src="<?= asset('assets/salmon1.png') ?>" alt="Hidangan Sagara Ikan">
       </div>
       <div class="review-cards">
         <div class="review reveal">
@@ -273,6 +273,7 @@
       } else { rv.forEach(function (el) { el.classList.add('in'); }); }
     })();
   </script>
+  <script src="<?= asset('assets/js/shop.js') ?>"></script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
