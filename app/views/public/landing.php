@@ -3,243 +3,234 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Resto Sagara Ikan</title>
-  <link rel="stylesheet" href="<?= asset('style.css') ?>"/>
-  <meta name="description" content="Sagara Ikan — restoran seafood dengan pilihan ikan segar: tuna, sarden, salmon, dan mackerel. Rasa premium, harga bersahabat."/>
-  <link rel="icon" href="<?= asset('assets/logo.png') ?>" type="image/png"/>
-  <noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sagara Ikan — Rasa Laut Terbaik</title>
+  <meta name="description" content="Sagara Ikan — restoran seafood modern dengan ikan segar pilihan: tuna, sarden, salmon, dan mackerel. Pesan online tanpa login.">
+  <link rel="icon" href="<?= asset('assets/logo.png') ?>" type="image/png">
+  <link rel="stylesheet" href="<?= asset('assets/css/modern.css') ?>">
+  <noscript><style>.reveal{opacity:1!important;transform:none!important;}</style></noscript>
 </head>
 <body>
 
-  <!-- Navigasi -->
-  <div class="menu">
-    <nav>
-      <input type="checkbox" id="check"/>
-      <label for="check" class="checkbtn"><ion-icon name="grid-outline"></ion-icon></label>
-      <a href="#hero-section" class="brand"><img src="<?= asset('assets/logo.png') ?>" alt="Sagara Ikan" class="logo"/></a>
-      <ul>
-        <li><a href="#hero-section" class="active">Beranda</a></li>
-        <li><a href="#about">Tentang</a></li>
-        <li><a href="#menu">Menu</a></li>
-        <li><a href="#testimonial">Ulasan</a></li>
-        <li><a href="#app">Aplikasi</a></li>
-        <li><a href="#contact">Kontak</a></li>
-        <li><a href="<?= url('cart') ?>" class="nav-cart"><ion-icon name="cart-outline"></ion-icon> Keranjang<?php if (!empty($cartCount)): ?><span class="cart-badge"><?= (int)$cartCount ?></span><?php endif; ?></a></li>
-        <li><a href="<?= url('login') ?>" class="btn nav-login">Login Staf</a></li>
-      </ul>
-    </nav>
-  </div>
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a href="#beranda" class="nav-brand"><img src="<?= asset('assets/logo.png') ?>" alt="Sagara">Sagara<b>.</b></a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#beranda">Beranda</a>
+        <a href="<?= url('pesanan') ?>">Menu</a>
+        <a href="#tentang">Tentang</a>
+        <a href="#galeri">Ulasan</a>
+      </nav>
+      <div class="nav-right">
+        <a href="<?= url('cart') ?>" class="cart-link"><ion-icon name="cart-outline"></ion-icon> Keranjang<?php if (!empty($cartCount)): ?><span class="cart-badge"><?= (int)$cartCount ?></span><?php endif; ?></a>
+        <a href="<?= url('login') ?>" class="btn">Login Staf</a>
+        <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')"><ion-icon name="menu-outline"></ion-icon></button>
+      </div>
+    </div>
+  </header>
 
   <?php foreach (($flashes ?? []) as $ftype => $fmsg): ?>
     <div class="toast <?= e($ftype) ?>" id="toast"><?= e($fmsg) ?></div>
   <?php endforeach; ?>
 
   <!-- Hero -->
-  <section class="section flex" id="hero-section">
-    <div class="text reveal">
-      <h1 class="primary">Selamat Datang di <span>Resto Sagara Ikan</span></h1>
-      <p class="tertiary">Nikmati hidangan laut berkualitas premium dari ikan pilihan: tuna, sarden, salmon, hingga mackerel. Dimasak dengan teknik terbaik, disajikan hangat, siap memanjakan lidah Anda.</p>
-      <a href="#menu" class="btn">Jelajahi Menu</a>
+  <section id="beranda" class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy reveal">
+        <span class="pill">Segar dari Laut Setiap Hari</span>
+        <h1 style="margin-top:18px;">Nikmati <span class="hl">Rasa Laut</span><br>Terbaik di Kota</h1>
+        <p>Ikan segar pilihan tuna, sarden, salmon, hingga mackerel, dimasak dengan teknik terbaik. Pesan online tanpa perlu login.</p>
+        <div class="hero-actions">
+          <a href="<?= url('pesanan') ?>" class="btn lg">Pesan Sekarang <ion-icon name="arrow-forward-outline"></ion-icon></a>
+          <a href="#menu" class="btn ghost lg">Lihat Menu</a>
+        </div>
+        <div class="hero-trust">
+          <div class="t"><b>4.9★</b><span>Rating pelanggan</span></div>
+          <div class="t"><b>10rb+</b><span>Pelanggan puas</span></div>
+          <div class="t"><b>30+</b><span>Menu seafood</span></div>
+        </div>
+      </div>
+      <div class="hero-visual reveal d1">
+        <div class="glow"></div>
+        <img class="cans" src="<?= asset('assets/all1.png') ?>" alt="Hidangan Sagara Ikan">
+        <div class="hero-chip one"><ion-icon name="fish-outline"></ion-icon><div><b>Ikan Segar</b><span>Setiap hari</span></div></div>
+        <div class="hero-chip two"><ion-icon name="time-outline"></ion-icon><div><b>15–20 mnt</b><span>Siap disajikan</span></div></div>
+      </div>
     </div>
-    <div class="visual reveal delay1"><img src="<?= asset('assets/all1.png') ?>" alt="Hidangan seafood Sagara Ikan"/></div>
   </section>
 
-  <!-- Informasi Utama -->
-  <main class="section" id="main-info" aria-label="Informasi Utama">
-    <div class="container flex main-split">
-      <section class="main-welcome reveal" aria-labelledby="welcome-title">
-        <h2 id="welcome-title" class="secondary">Tawaran Spesial!</h2>
-        <p class="tertiary">Di Sagara Ikan, kami menyajikan cita rasa laut yang elegan. Hidangan kami diracik dari ikan segar pilihan dengan teknik masak presisi renyah di luar, juicy di dalam. Nikmati pengalaman makan yang hangat, bersih, dan berkelas.</p>
-        <a href="#about" class="btn">Kenal Lebih Dekat</a>
-      </section>
-      <aside class="main-specials reveal delay1" aria-labelledby="specials-title">
-        <h3 id="specials-title" class="secondary small-title">Spesial Hari Ini</h3>
-        <ul class="specials-list">
-          <li><span>Salmon Butter Lemon</span> <span class="badge">Rp110.000</span></li>
-          <li><span>Tuna Oseng</span> <span class="badge">Rp80.000</span></li>
-          <li><span>Mackerel Telur Asin</span> <span class="badge">Rp89.000</span></li>
-          <li><span>Es Teh Anget</span> <span class="badge">Gratis</span></li>
+  <!-- Spesial -->
+  <section class="sec wrap">
+    <div class="specials">
+      <div class="reveal">
+        <span class="pill">Promo Hari Ini</span>
+        <h2 class="sec-title">Tawaran spesial yang sayang dilewatkan</h2>
+        <p class="sec-sub">Harga spesial untuk menu favorit, tersedia selama persediaan masih ada.</p>
+        <a href="<?= url('pesanan') ?>" class="btn" style="margin-top:22px;">Pesan Sekarang</a>
+      </div>
+      <div class="specials-card reveal d1">
+        <div class="row"><span class="n">Salmon Butter Lemon</span><span class="p">Rp110.000</span></div>
+        <div class="row"><span class="n">Tuna Oseng</span><span class="p">Rp80.000</span></div>
+        <div class="row"><span class="n">Mackerel Telur Asin</span><span class="p">Rp89.000</span></div>
+        <div class="row"><span class="n">Es Teh Anget</span><span class="p">Gratis</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tentang -->
+  <section id="tentang" class="sec wrap" style="padding-top:0;">
+    <div class="about">
+      <div class="about-visual reveal">
+        <img src="<?= asset('assets/4.png') ?>" alt="Dapur Sagara Ikan">
+        <div class="about-stat"><ion-icon name="ribbon-outline"></ion-icon><div><b>15+ Thn</b><span>Pengalaman</span></div></div>
+      </div>
+      <div class="reveal d1">
+        <span class="pill">Kenal Sagara</span>
+        <h2 class="sec-title">Memadukan tradisi &amp; inovasi rasa laut</h2>
+        <ul class="about-list">
+          <li><ion-icon name="checkmark-circle-outline"></ion-icon> Ikan segar pilihan, disortir setiap pagi.</li>
+          <li><ion-icon name="checkmark-circle-outline"></ion-icon> Teknik masak presisi renyah di luar, juicy di dalam.</li>
+          <li><ion-icon name="checkmark-circle-outline"></ion-icon> Suasana hangat, bersih, dan berkelas.</li>
         </ul>
-        <p class="note">* Tersedia sepanjang hari atau selama persediaan masih ada.</p>
-      </aside>
-    </div>
-  </main>
-
-  <!-- About -->
-  <section class="section" id="about">
-    <div class="container flex">
-      <div class="visual reveal"><img src="<?= asset('assets/4.png') ?>" alt="Dapur Sagara Ikan"/></div>
-      <div class="text reveal delay1">
-        <div class="secondary">Tentang Restoran Kami</div>
-        <h2 class="primary">Ikan fresh</h2>
-        <h3 class="tertiary">Cita rasa laut yang elegan</h3>
-        <p>Sagara Ikan menghadirkan sensasi kuliner laut yang berkelas. Dari pemilihan bahan baku hingga ke piring Anda, setiap detail kami jaga agar Anda merasakan rasa terbaik renyah di luar, juicy di dalam.</p>
-        <a href="#menu" class="btn">Lihat Menu</a>
+        <a href="#menu" class="btn ghost">Jelajahi Menu</a>
       </div>
     </div>
   </section>
 
-  <!-- Menu (dari database, maksimal 6 unggulan) -->
-  <section class="section" id="menu">
-    <div class="container">
-      <ul class="category reveal" id="catTabs">
-        <li class="active" data-cat="all">Semua</li>
-        <?php foreach ($categories as $c): ?>
-          <li data-cat="<?= e($c['slug']) ?>"><?= e($c['name']) ?></li>
-        <?php endforeach; ?>
-      </ul>
+  <!-- Menu -->
+  <section id="menu" class="sec wrap" style="padding-top:0;">
+    <div class="menu-head reveal">
+      <div class="sec-head">
+        <span class="pill">Menu Unggulan</span>
+        <h2 class="sec-title">Menu favoritmu menanti</h2>
+      </div>
+      <a href="<?= url('pesanan') ?>" class="btn ghost">Lihat Semua <ion-icon name="arrow-forward-outline"></ion-icon></a>
+    </div>
 
-      <div class="container">
-        <div class="restaurant-menu">
-          <?php if ($menu): foreach ($menu as $m): ?>
-            <div class="menu-item reveal" data-cat="<?= e($m['category_slug']) ?>">
-              <a href="<?= url('pesanan/item/' . $m['id']) ?>"><img src="<?= e(menu_image_url($m['image'])) ?>" alt="<?= e($m['name']) ?>"/></a>
-              <a href="<?= url('pesanan/item/' . $m['id']) ?>" class="menu-title-link"><div class="title"><?= e($m['name']) ?></div></a>
-              <div class="order flex">
-                <div class="price"><?= rupiah($m['price']) ?></div>
-                <form method="post" action="<?= url('cart/add/' . $m['id']) ?>" class="order-form">
-                  <?= Csrf::field() ?>
-                  <button type="submit" class="btn btn-menu">Pesan Sekarang</button>
-                </form>
-              </div>
+    <ul class="cat-tabs reveal" id="catTabs">
+      <li class="active" data-cat="all">Semua</li>
+      <?php foreach ($categories as $c): ?>
+        <li data-cat="<?= e($c['slug']) ?>"><?= e($c['name']) ?></li>
+      <?php endforeach; ?>
+    </ul>
+
+    <div class="menu-grid">
+      <?php if ($menu): foreach ($menu as $i => $m): ?>
+        <article class="menu-item reveal <?= 'd' . (($i % 3) + 1) ?>" data-cat="<?= e($m['category_slug']) ?>">
+          <a href="<?= url('pesanan/item/' . $m['id']) ?>" class="mi-img"><img src="<?= e(menu_image_url($m['image'])) ?>" alt="<?= e($m['name']) ?>"></a>
+          <div class="mi-body">
+            <a href="<?= url('pesanan/item/' . $m['id']) ?>" class="mi-title-link"><h3 class="title"><?= e($m['name']) ?></h3></a>
+            <div class="order">
+              <span class="price"><?= rupiah($m['price']) ?></span>
+              <form method="post" action="<?= url('cart/add/' . $m['id']) ?>" class="order-form"><?= Csrf::field() ?><button type="submit" class="btn-menu">Pesan</button></form>
             </div>
-          <?php endforeach; else: ?>
-            <p class="tertiary">Menu belum tersedia.</p>
-          <?php endif; ?>
-        </div>
-        <div style="text-align:center;margin-top:30px;">
-          <a href="<?= url('pesanan') ?>" class="btn">Lihat Semua Menu</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonial -->
-  <section class="section" id="testimonial">
-    <div class="container flex">
-      <div class="text reveal">
-        <h2 class="secondary">Apa kata mereka tentang kami?</h2>
-        <p>“Ikannya segar banget, bumbunya meresap, dan porsinya pas. Tempat yang wajib dikunjungi buat pecinta ikan!”</p>
-        <div class="user flex">
-          <img src="<?= asset('assets/client.jpeg') ?>" alt="Pelanggan Sagara Ikan"/>
-          <div class="name"><div class="title">Mamat</div><div class="location">Planet Bekasi</div></div>
-        </div>
-      </div>
-      <div class="visual reveal delay1"><img src="<?= asset('assets/review.png') ?>" alt="Suasana makan di Sagara Ikan"/></div>
-    </div>
-  </section>
-
-  <!-- App Section -->
-  <section class="section" id="app">
-    <div class="container flex">
-      <div class="visual reveal"><img src="<?= $appMockup ?>" alt="Aplikasi Sagara Ikan"/></div>
-      <div class="text reveal delay1">
-        <h2 class="secondary">Unduh Aplikasi Sagara Ikan</h2>
-        <p>Pesan lebih cepat, simpan favorit, dan nikmati promo eksklusif hanya di aplikasi.</p>
-        <div class="download flex">
-          <div class="app-store"><ion-icon name="logo-google-playstore"></ion-icon><p>TERSEDIA DI <br/><span>Google Play</span></p></div>
-          <div class="app-store"><ion-icon name="logo-apple"></ion-icon><p>UNDUH DI <br/><span>App Store</span></p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Kontak -->
-  <section class="section" id="contact" aria-label="Kontak Sagara Ikan">
-    <div class="container flex contact">
-      <div class="contact-card reveal">
-        <h2 class="secondary">Hubungi Kami</h2>
-        <p class="tertiary">Ada pertanyaan, reservasi, atau butuh bantuan? Kirim pesan lewat formulir di bawah.</p>
-        <form class="contact-form" action="#" method="post" onsubmit="alert('Terima kasih! Pesan Anda telah kami terima.');return false;">
-          <div class="input-group"><label for="nama">Nama</label><input type="text" id="nama" name="nama" placeholder="Nama lengkap" required/></div>
-          <div class="input-row">
-            <div class="input-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="nama@email.com" required/></div>
-            <div class="input-group"><label for="telepon">Telepon</label><input type="tel" id="telepon" name="telepon" placeholder="08xxxxxxxxxx"/></div>
           </div>
-          <div class="input-group"><label for="pesan">Pesan</label><textarea id="pesan" name="pesan" rows="5" placeholder="Tulis pesan kamu di sini..." required></textarea></div>
-          <button type="submit" class="btn">Kirim Pesan</button>
-        </form>
+        </article>
+      <?php endforeach; else: ?>
+        <p class="sec-sub">Menu belum tersedia.</p>
+      <?php endif; ?>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="galeri" class="sec wrap" style="padding-top:0;">
+    <div class="reviews">
+      <div class="sec-head reveal">
+        <span class="pill">Ulasan Pelanggan</span>
+        <h2 class="sec-title">Setiap kunjungan jadi kenangan</h2>
+        <p class="sec-sub">Ribuan pelanggan mempercayai Sagara Ikan untuk momen spesial mereka.</p>
       </div>
-      <div class="contact-info reveal delay1">
-        <div class="info-line"><ion-icon name="location-outline"></ion-icon><div><strong>Alamat</strong><p>Jl. Samudera No. 16, Alaska</p></div></div>
-        <div class="info-line"><ion-icon name="call-outline"></ion-icon><div><strong>Telepon</strong><p>+62 851-8773-2004</p></div></div>
-        <div class="info-line"><ion-icon name="time-outline"></ion-icon><div><strong>Jam Operasional</strong><p>Senin–Sabtu, 10.00–22.00 WIB</p></div></div>
-        <img src="<?= asset('assets/lokasi.png') ?>" class="map" alt="Peta lokasi Sagara Ikan"/>
+      <div class="review-cards">
+        <div class="review reveal">
+          <p>“Ikannya segar banget, bumbunya meresap, porsinya pas. Wajib dikunjungi!”</p>
+          <div class="who"><span class="stars">★ 4.9</span><b>Mamat</b><small>Bekasi, ID</small></div>
+        </div>
+        <div class="review reveal d1">
+          <p>“Pelayanan ramah, hidangan hangat dan cantik. Bahannya benar-benar segar.”</p>
+          <div class="who"><span class="stars">★ 5.0</span><b>Sophia</b><small>Jakarta, ID</small></div>
+        </div>
+        <div class="review reveal d2">
+          <p>“Rayakan anniversary di sini, dari dekorasi sampai dessert semuanya sempurna.”</p>
+          <div class="who"><span class="stars">★ 4.8</span><b>Emily</b><small>Bandung, ID</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App band -->
+  <section class="wrap" style="margin-bottom:20px;">
+    <div class="app-band reveal">
+      <div class="av"><img src="<?= $appMockup ?>" alt="Aplikasi Sagara Ikan"></div>
+      <div>
+        <span class="pill light">Aplikasi Sagara</span>
+        <h3 style="margin-top:14px;">Unduh Aplikasi Sagara Ikan</h3>
+        <p>Pesan lebih cepat, simpan favorit, dan nikmati promo eksklusif hanya di aplikasi.</p>
+        <div class="store-badges">
+          <a href="#" class="store-badge"><ion-icon name="logo-google-playstore"></ion-icon><div><small>Tersedia di</small><b>Google Play</b></div></a>
+          <a href="#" class="store-badge"><ion-icon name="logo-apple"></ion-icon><div><small>Unduh di</small><b>App Store</b></div></a>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container flex">
-      <div class="footer-about">
-        <h2>Tentang</h2>
-        <p>Sagara Ikan adalah destinasi seafood dengan sentuhan elegan. Kami meramu rasa laut menjadi pengalaman makan yang hangat dan berkesan.</p>
-        <div class="footer-socials">
+  <footer id="kontak" class="foot">
+    <div class="wrap foot-top">
+      <div>
+        <div class="brand-big">Sagara<b>.</b></div>
+        <p>Destinasi seafood modern dengan sentuhan elegan. Rasa laut yang hangat dan berkesan.</p>
+        <div class="foot-socials">
           <a href="https://instagram.com/msync.tech/" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
           <a href="https://wa.me/6285187732004" aria-label="WhatsApp"><ion-icon name="logo-whatsapp"></ion-icon></a>
           <a href="https://x.com/msyncq" aria-label="X"><ion-icon name="logo-x"></ion-icon></a>
         </div>
       </div>
-      <div class="footer-category">
-        <h2>Menu Kami</h2>
-        <ul>
-          <?php foreach (array_slice($categories, 0, 4) as $c): ?><li>Ikan <?= e($c['name']) ?></li><?php endforeach; ?>
-          <?php if (!$categories): ?><li>Seafood</li><?php endif; ?>
-        </ul>
-      </div>
-      <div class="quick-links">
-        <h2>Tautan Cepat</h2>
-        <ul>
-          <li><a href="#about">Tentang Kami</a></li>
-          <li><a href="#contact">Kontak</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="<?= url('cart') ?>">Pemesanan</a></li>
-          <li><a href="<?= url('cart/track') ?>">Lacak Pesanan</a></li>
-        </ul>
-      </div>
-      <div class="get-in-touch">
-        <h2>Hubungi Kami</h2>
-        <ul><li>WhatsApp</li><li>Pusat Bantuan</li><li>Kritik & Saran</li><li><a href="<?= url('login') ?>" style="color:inherit">Login Staf</a></li></ul>
+      <div><h4>Jelajahi</h4><ul>
+        <li><a href="#beranda">Beranda</a></li>
+        <li><a href="<?= url('pesanan') ?>">Menu &amp; Pesan</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="<?= url('cart/track') ?>">Lacak Pesanan</a></li>
+        <li><a href="<?= url('login') ?>">Login Staf</a></li>
+      </ul></div>
+      <div><h4>Kontak</h4><ul>
+        <li>Jl. Samudera No. 16, Alaska</li>
+        <li>+62 851-8773-2004</li>
+        <li>Senin–Sabtu, 10.00–22.00</li>
+      </ul></div>
+      <div>
+        <h4>Kabar &amp; promo ke inbox Anda</h4>
+        <p style="margin-top:2px;">Menu baru &amp; promo spesial, tanpa spam.</p>
+        <form class="newsletter" onsubmit="this.reset();alert('Terima kasih sudah berlangganan!');return false;">
+          <input type="email" placeholder="Email Anda..." required>
+          <button class="btn" type="submit">Langganan</button>
+        </form>
       </div>
     </div>
-    <div class="copyright">
-      <p>&copy; <?= date('Y') ?> Sagara Ikan - Malika Shakila</p>
-      <ul class="legal-nav"><li><a href="#">Kebijakan Privasi</a></li><li><a href="#">Syarat & Ketentuan</a></li></ul>
+    <div class="wrap foot-bottom">
+      <span>&copy; <?= date('Y') ?> Sagara Ikan — Malika Shakila</span>
+      <span>Kebijakan Privasi · Syarat &amp; Ketentuan</span>
     </div>
   </footer>
 
   <script>
-    (function(){
+    (function () {
       var tabs = document.querySelectorAll('#catTabs li');
-      var items = document.querySelectorAll('.restaurant-menu .menu-item');
-      tabs.forEach(function(t){
-        t.addEventListener('click', function(){
-          tabs.forEach(function(x){x.classList.remove('active');});
-          t.classList.add('active');
-          var cat = t.getAttribute('data-cat');
-          items.forEach(function(it){
-            it.style.display = (cat === 'all' || it.getAttribute('data-cat') === cat) ? '' : 'none';
-          });
-        });
-      });
+      var items = document.querySelectorAll('.menu-grid .menu-item');
+      tabs.forEach(function (t) { t.addEventListener('click', function () {
+        tabs.forEach(function (x) { x.classList.remove('active'); }); t.classList.add('active');
+        var c = t.getAttribute('data-cat');
+        items.forEach(function (it) { it.style.display = (c === 'all' || it.getAttribute('data-cat') === c) ? '' : 'none'; });
+      }); });
       var toast = document.getElementById('toast');
-      if (toast) { setTimeout(function(){ toast.classList.add('hide'); }, 3200); }
-
-      var menu = document.querySelector('.menu');
-      window.addEventListener('scroll', function(){ menu.classList.toggle('scrolled', window.scrollY > 20); }, { passive:true });
-
-      var reveals = document.querySelectorAll('.reveal');
+      if (toast) setTimeout(function(){ toast.classList.add('hide'); }, 3200);
+      var nav = document.getElementById('nav');
+      window.addEventListener('scroll', function () { nav.classList.toggle('scrolled', window.scrollY > 20); }, { passive: true });
+      var rv = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function(entries){
-          entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-        reveals.forEach(function(el){ io.observe(el); });
-      } else {
-        reveals.forEach(function(el){ el.classList.add('in'); });
-      }
+        var io = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }); }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+        rv.forEach(function (el) { io.observe(el); });
+      } else { rv.forEach(function (el) { el.classList.add('in'); }); }
     })();
   </script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= e($pageTitle ? $pageTitle . ' — Sagara Ikan' : 'Sagara Ikan') ?></title>
   <link rel="icon" href="<?= asset('assets/logo.png') ?>" type="image/png">
-  <link rel="stylesheet" href="<?= asset('assets/css/landing.css') ?>">
+  <link rel="stylesheet" href="<?= asset('assets/css/modern.css') ?>">
 </head>
 <body>
   <header class="nav" id="nav">
