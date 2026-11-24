@@ -21,11 +21,13 @@
         <a href="<?= url('pesanan') ?>">Menu</a>
         <a href="#tentang">Tentang</a>
         <a href="#galeri">Ulasan</a>
+        <a href="#kontak">Kontak</a>
+        <a href="<?= url('login') ?>" class="btn nav-login-mobile">Login Staf</a>
       </nav>
       <div class="nav-right">
-        <a href="<?= url('cart') ?>" class="cart-link"><ion-icon name="cart-outline"></ion-icon> Keranjang<?php if (!empty($cartCount)): ?><span class="cart-badge"><?= (int)$cartCount ?></span><?php endif; ?></a>
-        <a href="<?= url('login') ?>" class="btn">Login Staf</a>
-        <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')"><ion-icon name="menu-outline"></ion-icon></button>
+        <a href="<?= url('cart') ?>" class="cart-link"><ion-icon name="cart-outline"></ion-icon> <span class="cl-text">Keranjang</span><?php if (!empty($cartCount)): ?><span class="cart-badge"><?= (int)$cartCount ?></span><?php endif; ?></a>
+        <a href="<?= url('login') ?>" class="btn nav-login-desktop">Login Staf</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu" onclick="toggleNav(this)"><ion-icon name="menu-outline"></ion-icon><ion-icon name="close-outline"></ion-icon></button>
       </div>
     </div>
   </header>
@@ -140,6 +142,7 @@
         <span class="pill">Ulasan Pelanggan</span>
         <h2 class="sec-title">Setiap kunjungan jadi kenangan</h2>
         <p class="sec-sub">Ribuan pelanggan mempercayai Sagara Ikan untuk momen spesial mereka.</p>
+        <img class="reviews-photo" src="<?= asset('assets/review.png') ?>" alt="Suasana makan di Sagara Ikan">
       </div>
       <div class="review-cards">
         <div class="review reveal">
@@ -174,8 +177,34 @@
     </div>
   </section>
 
+  <!-- Kontak / Kritik & Saran -->
+  <section id="kontak" class="sec wrap">
+    <div class="contact">
+      <div class="contact-card reveal">
+        <span class="pill">Kritik &amp; Saran</span>
+        <h2 class="sec-title">Hubungi Kami</h2>
+        <p class="sec-sub">Ada pertanyaan, reservasi, keluhan, atau saran? Kirim pesan lewat formulir di bawah dan tim kami akan segera membalas.</p>
+        <form class="contact-form" onsubmit="this.reset();alert('Terima kasih! Pesan Anda telah kami terima.');return false;">
+          <div class="field"><label for="c-nama">Nama</label><input type="text" id="c-nama" placeholder="Nama lengkap" required></div>
+          <div class="row2">
+            <div class="field"><label for="c-email">Email</label><input type="email" id="c-email" placeholder="nama@email.com" required></div>
+            <div class="field"><label for="c-telp">Telepon</label><input type="tel" id="c-telp" placeholder="08xxxxxxxxxx"></div>
+          </div>
+          <div class="field"><label for="c-pesan">Pesan</label><textarea id="c-pesan" rows="4" placeholder="Tulis pesan, keluhan, atau saran kamu..." required></textarea></div>
+          <button type="submit" class="btn lg block"><ion-icon name="send-outline"></ion-icon> Kirim Pesan</button>
+        </form>
+      </div>
+      <div class="contact-side reveal d1">
+        <div class="info-line"><ion-icon name="location-outline"></ion-icon><div><b>Alamat</b><span>Jl. Samudera No. 16, Alaska</span></div></div>
+        <div class="info-line"><ion-icon name="call-outline"></ion-icon><div><b>Telepon</b><span>+62 851-8773-2004</span></div></div>
+        <div class="info-line"><ion-icon name="time-outline"></ion-icon><div><b>Jam Operasional</b><span>Senin–Sabtu, 10.00–22.00 WIB</span></div></div>
+        <img class="map" src="<?= asset('assets/lokasi.png') ?>" alt="Peta lokasi Sagara Ikan">
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer id="kontak" class="foot">
+  <footer class="foot">
     <div class="wrap foot-top">
       <div>
         <div class="brand-big">Sagara<b>.</b></div>
@@ -214,7 +243,18 @@
   </footer>
 
   <script>
+    function toggleNav(btn){
+      var links = document.getElementById('navLinks');
+      var open = links.classList.toggle('open');
+      btn.classList.toggle('active', open);
+    }
     (function () {
+      document.querySelectorAll('#navLinks a').forEach(function(a){
+        a.addEventListener('click', function(){
+          document.getElementById('navLinks').classList.remove('open');
+          var t = document.getElementById('navToggle'); if (t) t.classList.remove('active');
+        });
+      });
       var tabs = document.querySelectorAll('#catTabs li');
       var items = document.querySelectorAll('.menu-grid .menu-item');
       tabs.forEach(function (t) { t.addEventListener('click', function () {
