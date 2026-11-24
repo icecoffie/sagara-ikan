@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="<?= asset('style.css') ?>"/>
   <meta name="description" content="Sagara Ikan — restoran seafood dengan pilihan ikan segar: tuna, sarden, salmon, dan mackerel. Rasa premium, harga bersahabat."/>
   <link rel="icon" href="<?= asset('assets/logo.png') ?>" type="image/png"/>
+  <noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
 <body>
 
@@ -37,23 +38,23 @@
 
   <!-- Hero -->
   <section class="section flex" id="hero-section">
-    <div class="text">
+    <div class="text reveal">
       <h1 class="primary">Selamat Datang di <span>Resto Sagara Ikan</span></h1>
       <p class="tertiary">Nikmati hidangan laut berkualitas premium dari ikan pilihan: tuna, sarden, salmon, hingga mackerel. Dimasak dengan teknik terbaik, disajikan hangat, siap memanjakan lidah Anda.</p>
       <a href="#menu" class="btn">Jelajahi Menu</a>
     </div>
-    <div class="visual"><img src="<?= asset('assets/all1.png') ?>" alt="Hidangan seafood Sagara Ikan"/></div>
+    <div class="visual reveal delay1"><img src="<?= asset('assets/all1.png') ?>" alt="Hidangan seafood Sagara Ikan"/></div>
   </section>
 
   <!-- Informasi Utama -->
   <main class="section" id="main-info" aria-label="Informasi Utama">
     <div class="container flex main-split">
-      <section class="main-welcome" aria-labelledby="welcome-title">
+      <section class="main-welcome reveal" aria-labelledby="welcome-title">
         <h2 id="welcome-title" class="secondary">Tawaran Spesial!</h2>
         <p class="tertiary">Di Sagara Ikan, kami menyajikan cita rasa laut yang elegan. Hidangan kami diracik dari ikan segar pilihan dengan teknik masak presisi renyah di luar, juicy di dalam. Nikmati pengalaman makan yang hangat, bersih, dan berkelas.</p>
         <a href="#about" class="btn">Kenal Lebih Dekat</a>
       </section>
-      <aside class="main-specials" aria-labelledby="specials-title">
+      <aside class="main-specials reveal delay1" aria-labelledby="specials-title">
         <h3 id="specials-title" class="secondary small-title">Spesial Hari Ini</h3>
         <ul class="specials-list">
           <li><span>Salmon Butter Lemon</span> <span class="badge">Rp110.000</span></li>
@@ -69,8 +70,8 @@
   <!-- About -->
   <section class="section" id="about">
     <div class="container flex">
-      <div class="visual"><img src="<?= asset('assets/4.png') ?>" alt="Dapur Sagara Ikan"/></div>
-      <div class="text">
+      <div class="visual reveal"><img src="<?= asset('assets/4.png') ?>" alt="Dapur Sagara Ikan"/></div>
+      <div class="text reveal delay1">
         <div class="secondary">Tentang Restoran Kami</div>
         <h2 class="primary">Ikan fresh</h2>
         <h3 class="tertiary">Cita rasa laut yang elegan</h3>
@@ -83,7 +84,7 @@
   <!-- Menu (dari database, maksimal 6 unggulan) -->
   <section class="section" id="menu">
     <div class="container">
-      <ul class="category" id="catTabs">
+      <ul class="category reveal" id="catTabs">
         <li class="active" data-cat="all">Semua</li>
         <?php foreach ($categories as $c): ?>
           <li data-cat="<?= e($c['slug']) ?>"><?= e($c['name']) ?></li>
@@ -93,7 +94,7 @@
       <div class="container">
         <div class="restaurant-menu">
           <?php if ($menu): foreach ($menu as $m): ?>
-            <div class="menu-item" data-cat="<?= e($m['category_slug']) ?>">
+            <div class="menu-item reveal" data-cat="<?= e($m['category_slug']) ?>">
               <img src="<?= e(menu_image_url($m['image'])) ?>" alt="<?= e($m['name']) ?>"/>
               <div class="title"><?= e($m['name']) ?></div>
               <div class="order flex">
@@ -118,7 +119,7 @@
   <!-- Testimonial -->
   <section class="section" id="testimonial">
     <div class="container flex">
-      <div class="text">
+      <div class="text reveal">
         <h2 class="secondary">Apa kata mereka tentang kami?</h2>
         <p>“Ikannya segar banget, bumbunya meresap, dan porsinya pas. Tempat yang wajib dikunjungi buat pecinta ikan!”</p>
         <div class="user flex">
@@ -126,15 +127,15 @@
           <div class="name"><div class="title">Mamat</div><div class="location">Planet Bekasi</div></div>
         </div>
       </div>
-      <div class="visual"><img src="<?= asset('assets/review.png') ?>" alt="Suasana makan di Sagara Ikan"/></div>
+      <div class="visual reveal delay1"><img src="<?= asset('assets/review.png') ?>" alt="Suasana makan di Sagara Ikan"/></div>
     </div>
   </section>
 
   <!-- App Section -->
   <section class="section" id="app">
     <div class="container flex">
-      <div class="visual"><img src="<?= $appMockup ?>" alt="Aplikasi Sagara Ikan"/></div>
-      <div class="text">
+      <div class="visual reveal"><img src="<?= $appMockup ?>" alt="Aplikasi Sagara Ikan"/></div>
+      <div class="text reveal delay1">
         <h2 class="secondary">Unduh Aplikasi Sagara Ikan</h2>
         <p>Pesan lebih cepat, simpan favorit, dan nikmati promo eksklusif hanya di aplikasi.</p>
         <div class="download flex">
@@ -148,7 +149,7 @@
   <!-- Kontak -->
   <section class="section" id="contact" aria-label="Kontak Sagara Ikan">
     <div class="container flex contact">
-      <div class="contact-card">
+      <div class="contact-card reveal">
         <h2 class="secondary">Hubungi Kami</h2>
         <p class="tertiary">Ada pertanyaan, reservasi, atau butuh bantuan? Kirim pesan lewat formulir di bawah.</p>
         <form class="contact-form" action="#" method="post" onsubmit="alert('Terima kasih! Pesan Anda telah kami terima.');return false;">
@@ -161,7 +162,7 @@
           <button type="submit" class="btn">Kirim Pesan</button>
         </form>
       </div>
-      <div class="contact-info">
+      <div class="contact-info reveal delay1">
         <div class="info-line"><ion-icon name="location-outline"></ion-icon><div><strong>Alamat</strong><p>Jl. Samudera No. 16, Alaska</p></div></div>
         <div class="info-line"><ion-icon name="call-outline"></ion-icon><div><strong>Telepon</strong><p>+62 851-8773-2004</p></div></div>
         <div class="info-line"><ion-icon name="time-outline"></ion-icon><div><strong>Jam Operasional</strong><p>Senin–Sabtu, 10.00–22.00 WIB</p></div></div>
@@ -226,6 +227,19 @@
       });
       var toast = document.getElementById('toast');
       if (toast) { setTimeout(function(){ toast.classList.add('hide'); }, 3200); }
+
+      var menu = document.querySelector('.menu');
+      window.addEventListener('scroll', function(){ menu.classList.toggle('scrolled', window.scrollY > 20); }, { passive:true });
+
+      var reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(function(el){ io.observe(el); });
+      } else {
+        reveals.forEach(function(el){ el.classList.add('in'); });
+      }
     })();
   </script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
