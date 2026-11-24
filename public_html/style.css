@@ -339,3 +339,10 @@ details[open] summary ~ *{animation:open 1s ease-in-out}
 
 .menu{transition:box-shadow .3s}
 .menu.scrolled{box-shadow:0 8px 24px rgba(11,36,71,.08)}
+
+/* ===== Polish: menu card links + hero PNG crisp ===== */
+.menu-item a{display:block}
+.menu-title-link{color:inherit}
+.menu-title-link:hover .title{color:var(--clr-primary)}
+#hero-section .visual img{max-width:520px;margin-left:auto;filter:drop-shadow(0 18px 30px rgba(11,36,71,.18))}
+@media(max-width:858px){#hero-section .visual img{margin:0 auto}}
