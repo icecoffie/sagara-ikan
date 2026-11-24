@@ -4,7 +4,7 @@ if (!defined('SAGARA_APP')) { http_response_code(403); exit('Forbidden'); }
 class Order extends Model
 {
     protected static string $table = 'orders';
-    protected static array $fillable = ['order_number', 'table_id', 'user_id', 'status', 'total', 'paid_at'];
+    protected static array $fillable = ['order_number', 'table_id', 'user_id', 'source', 'order_type', 'customer_name', 'customer_phone', 'status', 'total', 'paid_at'];
 
     public static function search(array $f, int $limit, int $offset): array
     {

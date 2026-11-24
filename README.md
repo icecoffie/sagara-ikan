@@ -18,13 +18,18 @@ Aplikasi manajemen restoran seafood **Sagara Ikan**, dibangun dengan **PHP nativ
 - **Activity log** (khusus Admin): mencatat login, create/update/delete, pembayaran, export.
 - Search + filter + pagination di semua tabel CRUD.
 
-## Role & Hak Akses (ringkas)
+## Hirarki Pengguna (seperti web app restoran)
+
+- **Pembeli / Pelanggan (tanpa login):** sisi publik. Lihat menu → masukkan ke **keranjang** → **checkout** (makan di tempat dengan nomor meja, atau bawa pulang) → pesan **tanpa akun**. Dapat halaman **konfirmasi** (nomor pesanan) dan **lacak status**. Pesanan otomatis masuk ke panel staf.
+- **Staf (login):** mengelola operasional lewat panel. Pesanan pelanggan muncul dengan label **"Online"** dan siap diproses/dibayar kasir.
+
+## Role Staf & Hak Akses (ringkas)
 
 | Role | Akses utama |
 |------|-------------|
 | **Admin** | Semua fitur + kelola Users, Roles, dan assign Permission via UI |
 | **Manajer** | CRUD Kategori/Menu/Meja/Reservasi, lihat Pesanan & laporan/dashboard; tanpa kelola user/role |
-| **Kasir** | Kelola & bayar Pesanan, cetak struk, lihat Menu & Meja; tanpa hapus menu/kelola user |
+| **Kasir** | Kelola & bayar Pesanan (termasuk pesanan online pelanggan), cetak struk, lihat Menu & Meja |
 | **Pelayan** | Buat/ubah Pesanan, kelola Reservasi, ubah status Meja; tanpa bayar/hapus transaksi |
 
 ## Akun Demo (dari `seed.sql`)

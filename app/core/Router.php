@@ -14,6 +14,7 @@ class Router
     ];
 
     private array $resources = [
+        'cart'        => 'CartController',
         'category'    => 'CategoryController',
         'menu'        => 'MenuController',
         'table'       => 'TableController',

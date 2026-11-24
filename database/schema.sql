@@ -152,7 +152,11 @@ CREATE TABLE `orders` (
     `id`           INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `order_number` VARCHAR(30) NOT NULL,
     `table_id`     INT UNSIGNED DEFAULT NULL,
-    `user_id`      INT UNSIGNED DEFAULT NULL,  -- creator (cashier/waiter)
+    `user_id`      INT UNSIGNED DEFAULT NULL,  -- creator (cashier/waiter), NULL for customer orders
+    `source`       ENUM('staff','customer') NOT NULL DEFAULT 'staff',
+    `order_type`   ENUM('dine_in','takeaway') NOT NULL DEFAULT 'dine_in',
+    `customer_name`  VARCHAR(120) DEFAULT NULL,
+    `customer_phone` VARCHAR(30) DEFAULT NULL,
     `status`       ENUM('open','paid','cancelled') NOT NULL DEFAULT 'open',
     `total`        DECIMAL(12,2) NOT NULL DEFAULT 0,
     `paid_at`      DATETIME DEFAULT NULL,

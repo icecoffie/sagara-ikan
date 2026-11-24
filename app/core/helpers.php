@@ -210,3 +210,66 @@ function menu_image_url(?string $image): string
     }
     return asset('assets/all.png');
 }
+
+function cart(): array
+{
+    return $_SESSION['cart'] ?? [];
+}
+
+function cart_count(): int
+{
+    return array_sum(cart());
+}
+
+function cart_add(int $menuId, int $qty = 1): void
+{
+    $c = cart();
+    $c[$menuId] = ($c[$menuId] ?? 0) + max(1, $qty);
+    $_SESSION['cart'] = $c;
+}
+
+function cart_set(int $menuId, int $qty): void
+{
+    $c = cart();
+    if ($qty <= 0) {
+        unset($c[$menuId]);
+    } else {
+        $c[$menuId] = $qty;
+    }
+    $_SESSION['cart'] = $c;
+}
+
+function cart_remove(int $menuId): void
+{
+    $c = cart();
+    unset($c[$menuId]);
+    $_SESSION['cart'] = $c;
+}
+
+function cart_clear(): void
+{
+    unset($_SESSION['cart']);
+}
+
+function cart_items(): array
+{
+    $c = cart();
+    if (!$c) {
+        return ['items' => [], 'total' => 0.0];
+    }
+    $ids = array_keys($c);
+    $in = implode(',', array_fill(0, count($ids), '?'));
+    $rows = Database::all(
+        "SELECT id, name, price, image FROM menu_items WHERE id IN ($in) AND is_available = 1",
+        $ids
+    );
+    $items = [];
+    $total = 0.0;
+    foreach ($rows as $r) {
+        $qty = (int) $c[$r['id']];
+        $sub = $qty * (float) $r['price'];
+        $total += $sub;
+        $items[] = $r + ['qty' => $qty, 'subtotal' => $sub];
+    }
+    return ['items' => $items, 'total' => $total];
+}

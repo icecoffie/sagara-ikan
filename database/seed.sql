@@ -160,6 +160,11 @@ INSERT INTO `orders` (`id`, `order_number`, `table_id`, `user_id`, `status`, `to
 (9,  'ORD-0009', 4, 4, 'open',   89000,  NULL, NOW()),
 (10, 'ORD-0010', 5, 4, 'open',   150000, NULL, NOW());
 
+-- Customer self-service orders (no login, source = customer)
+INSERT INTO `orders` (`id`, `order_number`, `table_id`, `user_id`, `source`, `order_type`, `customer_name`, `customer_phone`, `status`, `total`, `paid_at`, `created_at`) VALUES
+(11, 'ORD-0011', 3, NULL, 'customer', 'dine_in',  'Nadia Putri', '081299990001', 'open', 211000, NULL, NOW()),
+(12, 'ORD-0012', NULL, NULL, 'customer', 'takeaway', 'Yoga Pratama', '081299990002', 'open', 95000, NULL, NOW());
+
 INSERT INTO `order_items` (`order_id`, `menu_item_id`, `item_name`, `qty`, `price`, `subtotal`) VALUES
 (1, 1, 'Tuna Oseng', 2, 89000, 178000),
 (2, 5, 'Salmon Butter Lemon', 1, 119000, 119000),
@@ -172,7 +177,10 @@ INSERT INTO `order_items` (`order_id`, `menu_item_id`, `item_name`, `qty`, `pric
 (7, 8, 'Mackerel Saus Padang', 1, 92000, 92000),
 (8, 5, 'Salmon Butter Lemon', 1, 119000, 119000),
 (9, 1, 'Tuna Oseng', 1, 89000, 89000),
-(10, 12, 'Paket Hemat Berdua', 1, 150000, 150000);
+(10, 12, 'Paket Hemat Berdua', 1, 150000, 150000),
+(11, 5, 'Salmon Butter Lemon', 1, 119000, 119000),
+(11, 8, 'Mackerel Saus Padang', 1, 92000, 92000),
+(12, 2, 'Tuna Bakar Madu', 1, 95000, 95000);
 
 -- ---------------- Activity log sample ----------------
 INSERT INTO `activity_logs` (`user_id`, `action`, `detail`, `ip_address`, `created_at`) VALUES

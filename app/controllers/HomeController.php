@@ -17,6 +17,8 @@ class HomeController extends Controller
             'categories' => $categories,
             'menu'       => $menu,
             'appName'    => Config::get('app_name', 'Sagara Resto'),
+            'flashes'    => flash(),
+            'cartCount'  => cart_count(),
         ]);
     }
 }

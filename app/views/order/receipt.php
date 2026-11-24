@@ -35,8 +35,10 @@
     <hr>
     <div class="meta">No. &nbsp;: <?= e($order['order_number']) ?></div>
     <div class="meta">Tgl &nbsp;: <?= e(date('d/m/Y H:i', strtotime($order['paid_at'] ?: $order['created_at']))) ?></div>
+    <div class="meta">Tipe &nbsp;: <?= $order['order_type'] === 'takeaway' ? 'Bawa Pulang' : 'Makan di Tempat' ?></div>
     <div class="meta">Meja &nbsp;: <?= e($order['table_number'] ?? '-') ?></div>
-    <div class="meta">Kasir : <?= e($order['cashier'] ?? '-') ?></div>
+    <?php if (!empty($order['customer_name'])): ?><div class="meta">Tamu &nbsp;: <?= e($order['customer_name']) ?></div><?php endif; ?>
+    <div class="meta">Kasir : <?= e($order['cashier'] ?? ($order['source'] === 'customer' ? 'Online' : '-')) ?></div>
     <div class="meta">Status: <?= e(ucfirst($order['status'])) ?></div>
     <hr>
     <table>

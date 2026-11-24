@@ -37,12 +37,16 @@ $appMockup = asset('assets/' . rawurlencode('mockup app sagara ikan.png'));
       </nav>
       <a href="#beranda" class="nav-brand"><img src="<?= asset('assets/logo.png') ?>" alt="Sagara">Sagara<b>.</b></a>
       <div class="nav-right">
-        <a href="#kontak">Kontak</a>
-        <a href="<?= url('login') ?>" class="btn" style="padding:11px 22px;">Login</a>
+        <a href="<?= url('cart') ?>" class="cart-link"><ion-icon name="cart-outline"></ion-icon> Keranjang<?php if (!empty($cartCount)): ?><span class="cart-badge"><?= (int)$cartCount ?></span><?php endif; ?></a>
+        <a href="<?= url('login') ?>" class="btn" style="padding:11px 22px;">Login Staf</a>
         <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')"><ion-icon name="menu-outline"></ion-icon></button>
       </div>
     </div>
   </header>
+
+  <?php foreach (($flashes ?? []) as $ftype => $fmsg): ?>
+    <div class="toast <?= e($ftype) ?>" id="toast"><?= e($fmsg) ?></div>
+  <?php endforeach; ?>
 
   <section id="beranda" class="hero wrap">
     <span class="pill">Segar dari Laut, Disajikan dengan Cinta</span>
@@ -98,7 +102,10 @@ $appMockup = asset('assets/' . rawurlencode('mockup app sagara ikan.png'));
             <div class="tag"><?= e($m['category_name']) ?></div>
             <h3><?= e($m['name']) ?></h3>
             <div class="price"><?= rupiah($m['price']) ?></div>
-            <a href="<?= url('login') ?>" class="btn-order">Pesan Sekarang <ion-icon name="arrow-forward-outline"></ion-icon></a>
+            <form method="post" action="<?= url('cart/add/' . $m['id']) ?>" class="order-form">
+              <?= Csrf::field() ?>
+              <button type="submit" class="btn-order">Pesan Sekarang <ion-icon name="cart-outline"></ion-icon></button>
+            </form>
           </div>
         </article>
       <?php endforeach; else: ?>
@@ -117,8 +124,8 @@ $appMockup = asset('assets/' . rawurlencode('mockup app sagara ikan.png'));
       <div>
         <span class="pill on-dark">Reservasi Meja</span>
         <h2>Pesan tempatmu! kebahagiaan bersantap yang sempurna</h2>
-        <p class="sec-sub">Amankan meja favorit Anda untuk momen spesial bersama keluarga dan sahabat.</p>
-        <a href="<?= url('login') ?>" class="btn" style="margin-top:26px;">Reservasi Sekarang</a>
+        <p class="sec-sub">Pilih menu favorit, tentukan meja atau bawa pulang, lalu pesan langsung tanpa perlu login.</p>
+        <a href="#menu" class="btn" style="margin-top:26px;">Pesan Sekarang</a>
       </div>
     </div>
   </section>

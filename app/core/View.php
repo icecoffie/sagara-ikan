@@ -16,6 +16,13 @@ class View
         echo self::capture($view, $data);
     }
 
+    public static function renderPublic(string $view, array $data = [], string $title = ''): void
+    {
+        $content = self::capture($view, $data);
+        $pageTitle = $title;
+        require APP_PATH . '/views/layouts/public.php';
+    }
+
     public static function capture(string $view, array $data = []): string
     {
         $file = APP_PATH . '/views/' . $view . '.php';

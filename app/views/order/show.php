@@ -9,7 +9,16 @@ $isOpen = $order['status'] === 'open';
       <span class="badge <?= $ob[$order['status']] ?? 'gray' ?>" style="vertical-align:middle;"><?= e(ucfirst($order['status'])) ?></span>
     </h2>
     <div style="color:var(--clr-muted);font-size:14px;">
-      Meja <?= e($order['table_number'] ?? '-') ?> · Kasir <?= e($order['cashier'] ?? '-') ?> · <?= e(date('d M Y, H:i', strtotime($order['created_at']))) ?>
+      <?php $otypes = ['dine_in' => 'Makan di tempat', 'takeaway' => 'Bawa pulang']; ?>
+      <span class="badge <?= ($order['source'] ?? 'staff') === 'customer' ? 'blue' : 'gray' ?>" style="font-size:11px;"><?= ($order['source'] ?? 'staff') === 'customer' ? 'Pesanan Online' : 'Staf' ?></span>
+      · <?= e($otypes[$order['order_type'] ?? 'dine_in'] ?? '-') ?>
+      · Meja <?= e($order['table_number'] ?? '-') ?>
+      <?php if (($order['source'] ?? 'staff') === 'customer'): ?>
+        · Pelanggan: <b><?= e($order['customer_name']) ?></b><?= $order['customer_phone'] ? ' (' . e($order['customer_phone']) . ')' : '' ?>
+      <?php else: ?>
+        · Kasir <?= e($order['cashier'] ?? '-') ?>
+      <?php endif; ?>
+      · <?= e(date('d M Y, H:i', strtotime($order['created_at']))) ?>
     </div>
   </div>
   <div class="toolbar">

@@ -28,6 +28,7 @@ ROLE_SUMMARY = {
 
 FEATURES = [
     ("Landing page publik", "Halaman depan restoran dengan desain editorial bertema biru laut; section menu diambil langsung dari database."),
+    ("Pemesanan pelanggan tanpa login", "Pembeli (guest) dapat menambah menu ke keranjang, checkout (makan di tempat/bawa pulang), dan memesan tanpa akun. Pesanan otomatis masuk ke panel kasir, lengkap dengan halaman konfirmasi & lacak status via nomor pesanan."),
     ("Autentikasi & keamanan", "Login berbasis sesi, password_hash/verify, CSRF token di semua form POST, escaping output, dan guard akses per halaman."),
     ("RBAC granular via UI", "4 role dan 31 permission format resource.action. Admin dapat mencentang izin per role lewat halaman; perubahan langsung berlaku."),
     ("CRUD Kategori", "Kelola kategori menu: nama, slug otomatis, deskripsi, status aktif."),
@@ -62,6 +63,10 @@ SCREENSHOT_PLAN = [
     ("17-dashboard-manajer.png", "Dashboard — Manajer", "manajer", "/index.php/dashboard"),
     ("18-dashboard-kasir.png", "Dashboard — Kasir", "kasir", "/index.php/dashboard"),
     ("19-dashboard-pelayan.png", "Dashboard — Pelayan", "pelayan", "/index.php/dashboard"),
+    ("20-cart.png", "Keranjang pelanggan (tanpa login)", "shop", "/index.php/cart"),
+    ("21-checkout.png", "Checkout pelanggan (dine-in / takeaway)", "shop", "/index.php/cart/checkout"),
+    ("22-confirm.png", "Konfirmasi pesanan pelanggan", "shop", "/index.php/cart/confirm/ORD-0011"),
+    ("23-track.png", "Lacak status pesanan", "shop", "/index.php/cart/track?order_number=ORD-0011"),
 ]
 
 
@@ -154,6 +159,18 @@ def take_screenshots(base_url):
                     return browser.new_context(viewport={"width": 1366, "height": 900})
                 if role in sessions:
                     return sessions[role]
+                if role == "shop":
+                    c = browser.new_context(viewport={"width": 1366, "height": 900})
+                    page = c.new_page()
+                    page.goto(base_url + "/index.php/", wait_until="networkidle")
+                    for idx in (0, 3):
+                        btns = page.query_selector_all(".menu-grid .order-form button")
+                        if idx < len(btns):
+                            btns[idx].click()
+                            page.wait_for_load_state("networkidle")
+                    page.close()
+                    sessions[role] = c
+                    return c
                 c = browser.new_context(viewport={"width": 1366, "height": 900})
                 page = c.new_page()
                 page.goto(base_url + "/index.php/login")

@@ -1,5 +1,6 @@
 <?php if (!defined('SAGARA_APP')) { http_response_code(403); exit('Forbidden'); } ?>
 <?php $ob = ['open' => 'amber', 'paid' => 'green', 'cancelled' => 'red']; ?>
+<?php $otype = ['dine_in' => 'Dine-in', 'takeaway' => 'Takeaway']; ?>
 <div class="panel">
   <div class="panel-head">
     <h2>Daftar Pesanan</h2>
@@ -20,13 +21,16 @@
   </div>
   <div class="panel-body" style="padding:0;">
     <div class="table-wrap"><table class="data">
-      <thead><tr><th>No. Pesanan</th><th>Meja</th><th>Kasir</th><th>Status</th><th>Total</th><th>Waktu</th><th class="actions">Aksi</th></tr></thead>
+      <thead><tr><th>No. Pesanan</th><th>Tipe</th><th>Meja</th><th>Pelanggan / Oleh</th><th>Status</th><th>Total</th><th>Waktu</th><th class="actions">Aksi</th></tr></thead>
       <tbody>
         <?php if ($items): foreach ($items as $o): ?>
           <tr>
-            <td><b><?= e($o['order_number']) ?></b></td>
+            <td><b><?= e($o['order_number']) ?></b>
+              <?php if (($o['source'] ?? 'staff') === 'customer'): ?><div><span class="badge blue" style="font-size:11px;"><ion-icon name="globe-outline" style="vertical-align:-2px"></ion-icon> Online</span></div><?php endif; ?>
+            </td>
+            <td><span class="badge gray"><?= e($otype[$o['order_type'] ?? 'dine_in'] ?? '-') ?></span></td>
             <td><?= e($o['table_number'] ?? '-') ?></td>
-            <td><?= e($o['cashier'] ?? '-') ?></td>
+            <td><?= e(($o['source'] ?? 'staff') === 'customer' ? ($o['customer_name'] ?: 'Pelanggan') : ($o['cashier'] ?? '-')) ?></td>
             <td><span class="badge <?= $ob[$o['status']] ?? 'gray' ?>"><?= e(ucfirst($o['status'])) ?></span></td>
             <td><?= rupiah($o['total']) ?></td>
             <td><?= e(date('d M H:i', strtotime($o['created_at']))) ?></td>
@@ -39,7 +43,7 @@
             </td>
           </tr>
         <?php endforeach; else: ?>
-          <tr><td colspan="7" class="empty">Tidak ada pesanan.</td></tr>
+          <tr><td colspan="8" class="empty">Tidak ada pesanan.</td></tr>
         <?php endif; ?>
       </tbody>
     </table></div>
