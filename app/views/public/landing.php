@@ -12,6 +12,7 @@ $dishImage = function (array $m): string {
     }
     return asset('assets/all.png');
 };
+$appMockup = asset('assets/' . rawurlencode('mockup app sagara ikan.png'));
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -22,10 +23,11 @@ $dishImage = function (array $m): string {
   <meta name="description" content="Sagara Ikan — restoran seafood dengan ikan segar pilihan: tuna, sarden, salmon, dan mackerel. Rasa premium, suasana elegan.">
   <link rel="icon" href="<?= asset('assets/logo.png') ?>" type="image/png">
   <link rel="stylesheet" href="<?= asset('assets/css/landing.css') ?>">
+  <noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
 <body>
 
-  <header class="nav">
+  <header class="nav" id="nav">
     <div class="wrap nav-inner">
       <nav class="nav-links" id="navLinks">
         <a href="#beranda">Beranda</a>
@@ -45,7 +47,7 @@ $dishImage = function (array $m): string {
   <section id="beranda" class="hero wrap">
     <span class="pill">Segar dari Laut, Disajikan dengan Cinta</span>
     <h1>Rasakan <em>Bahasa</em><br>Rasa Laut</h1>
-    <div class="hero-media">
+    <div class="hero-media reveal">
       <a href="#menu" class="hero-cta"><ion-icon name="arrow-down-outline"></ion-icon>Jelajahi<br>Menu</a>
       <img src="<?= asset('assets/all1.png') ?>" alt="Hidangan Sagara Ikan">
     </div>
@@ -53,7 +55,7 @@ $dishImage = function (array $m): string {
 
   <section id="tentang" class="sec wrap">
     <div class="about-grid">
-      <div>
+      <div class="reveal">
         <p class="lead">Memadukan <b>warisan rasa</b> laut nusantara</p>
         <span class="pill">Kenal Sagara</span>
         <h2 class="sec-title">Memadukan tradisi &amp; inovasi untuk pengalaman bersantap tak terlupakan</h2>
@@ -68,12 +70,12 @@ $dishImage = function (array $m): string {
           <div><b>Pelanggan Puas</b>Ribuan ulasan dari tamu kami</div>
         </div>
       </div>
-      <div class="about-media"><img src="<?= asset('assets/4.png') ?>" alt="Suasana Sagara Ikan"></div>
+      <div class="about-media reveal d1"><img src="<?= asset('assets/4.png') ?>" alt="Suasana Sagara Ikan"></div>
     </div>
   </section>
 
   <section id="menu" class="sec wrap" style="padding-top:0;">
-    <div class="menu-top">
+    <div class="menu-top reveal">
       <div class="sec-head">
         <span class="pill">Jelajahi Menu</span>
         <h2 class="sec-title">Menu favoritmu menanti</h2>
@@ -81,7 +83,7 @@ $dishImage = function (array $m): string {
       <p class="sec-sub" style="max-width:360px;">Pilih dari beragam olahan ikan segar kami tuna, salmon, sarden, hingga mackerel.</p>
     </div>
 
-    <ul class="cat-tabs" id="catTabs">
+    <ul class="cat-tabs reveal d1" id="catTabs">
       <li class="active" data-cat="all">Semua</li>
       <?php foreach ($categories as $c): ?>
         <li data-cat="<?= e($c['slug']) ?>"><?= e($c['name']) ?></li>
@@ -89,16 +91,14 @@ $dishImage = function (array $m): string {
     </ul>
 
     <div class="menu-grid">
-      <?php if ($menu): foreach ($menu as $m): ?>
-        <article class="dish" data-cat="<?= e($m['category_slug']) ?>">
-          <img src="<?= e($dishImage($m)) ?>" alt="<?= e($m['name']) ?>">
+      <?php if ($menu): foreach ($menu as $i => $m): ?>
+        <article class="dish reveal <?= 'd' . (($i % 3) + 1) ?>" data-cat="<?= e($m['category_slug']) ?>">
+          <div class="thumb-wrap"><img src="<?= e($dishImage($m)) ?>" alt="<?= e($m['name']) ?>"></div>
           <div class="body">
             <div class="tag"><?= e($m['category_name']) ?></div>
             <h3><?= e($m['name']) ?></h3>
-            <div class="row">
-              <span class="price"><?= rupiah($m['price']) ?></span>
-              <a href="<?= url('login') ?>" class="order">Pesan <ion-icon name="arrow-forward-outline"></ion-icon></a>
-            </div>
+            <div class="price"><?= rupiah($m['price']) ?></div>
+            <a href="<?= url('login') ?>" class="btn-order">Pesan Sekarang <ion-icon name="arrow-forward-outline"></ion-icon></a>
           </div>
         </article>
       <?php endforeach; else: ?>
@@ -108,7 +108,7 @@ $dishImage = function (array $m): string {
   </section>
 
   <section class="wrap">
-    <div class="dark reserve">
+    <div class="dark reserve reveal">
       <div class="reserve-photos">
         <img src="<?= asset('assets/review.png') ?>" alt="">
         <img src="<?= asset('assets/salmon1.png') ?>" alt="">
@@ -124,14 +124,14 @@ $dishImage = function (array $m): string {
   </section>
 
   <section id="galeri" class="gallery wrap">
-    <span class="pill">Sajian untuk Mata</span>
-    <h2 class="sec-title" style="margin-top:16px;">Rasakan suasananya lewat galeri kami</h2>
+    <span class="pill reveal">Sajian untuk Mata</span>
+    <h2 class="sec-title reveal d1" style="margin-top:16px;">Rasakan suasananya lewat galeri kami</h2>
     <div class="polaroids">
       <?php
         $labels = ['Tuna', 'Salmon', 'Sarden', 'Mackerel', 'Paket Komplit', 'Spesial'];
         foreach ($galleryImages as $i => $img):
       ?>
-        <figure class="polaroid">
+        <figure class="polaroid reveal <?= 'd' . (($i % 3) + 1) ?>">
           <img src="<?= asset('assets/' . $img) ?>" alt="<?= e($labels[$i]) ?>">
           <span><?= e($labels[$i]) ?></span>
         </figure>
@@ -141,20 +141,20 @@ $dishImage = function (array $m): string {
 
   <section class="sec wrap" style="padding-top:0;">
     <div class="reviews-grid">
-      <div class="sec-head">
+      <div class="sec-head reveal">
         <span class="pill">Ulasan Pelanggan</span>
         <h2 class="sec-title">Setiap kunjungan jadi kenangan indah</h2>
       </div>
       <div class="review-cards">
-        <div class="review">
+        <div class="review reveal">
           <p>“Ikannya segar banget, bumbunya meresap, dan porsinya pas. Wajib dikunjungi buat pecinta ikan!”</p>
           <div class="who"><span class="stars">★ 4.9</span><b>Mamat</b><small>Bekasi, ID</small></div>
         </div>
-        <div class="review dark-card">
+        <div class="review dark-card reveal d1">
           <p>“Pelayanan ramah, hidangan disajikan hangat dan cantik. Bahan-bahannya benar-benar segar.”</p>
           <div class="who"><span class="stars">★ 5.0</span><b>Sophia</b><small>Jakarta, ID</small></div>
         </div>
-        <div class="review">
+        <div class="review reveal d2">
           <p>“Kami rayakan anniversary di sini, dari dekorasi sampai dessert semuanya sempurna.”</p>
           <div class="who"><span class="stars">★ 4.8</span><b>Emily</b><small>Bandung, ID</small></div>
         </div>
@@ -163,6 +163,26 @@ $dishImage = function (array $m): string {
   </section>
 
   <footer id="kontak" class="foot">
+    <div class="wrap">
+      <div class="app-cta reveal">
+        <div class="app-text">
+          <h3>Unduh Aplikasi Sagara Ikan</h3>
+          <p>Pesan lebih cepat, simpan menu favorit, dan nikmati promo eksklusif langsung dari genggaman Anda.</p>
+          <div class="store-badges">
+            <a href="#" class="store-badge" aria-label="Google Play">
+              <ion-icon name="logo-google-playstore"></ion-icon>
+              <span class="sb-text">Tersedia di<b>Google Play</b></span>
+            </a>
+            <a href="#" class="store-badge" aria-label="App Store">
+              <ion-icon name="logo-apple"></ion-icon>
+              <span class="sb-text">Unduh di<b>App Store</b></span>
+            </a>
+          </div>
+        </div>
+        <div class="app-visual"><img src="<?= $appMockup ?>" alt="Aplikasi Sagara Ikan"></div>
+      </div>
+    </div>
+
     <div class="wrap foot-top">
       <div>
         <div class="brand-big">Sagara<b>.</b></div>
@@ -220,6 +240,23 @@ $dishImage = function (array $m): string {
           });
         });
       });
+
+      var nav = document.getElementById('nav');
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('scrolled', window.scrollY > 20);
+      }, { passive: true });
+
+      var reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(function (el) { io.observe(el); });
+      } else {
+        reveals.forEach(function (el) { el.classList.add('in'); });
+      }
     })();
   </script>
   <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
