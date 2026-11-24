@@ -13,8 +13,8 @@
   <header class="nav" id="nav">
     <div class="wrap nav-inner">
       <nav class="nav-links">
-        <a href="<?= url('') ?>#beranda">Beranda</a>
-        <a href="<?= url('') ?>#menu">Menu</a>
+        <a href="<?= url('') ?>">Beranda</a>
+        <a href="<?= url('pesanan') ?>">Menu</a>
         <a href="<?= url('cart/track') ?>">Lacak Pesanan</a>
       </nav>
       <a href="<?= url('') ?>" class="nav-brand"><img src="<?= asset('assets/logo.png') ?>" alt="Sagara">Sagara<b>.</b></a>

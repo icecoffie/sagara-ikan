@@ -273,3 +273,13 @@ function cart_items(): array
     }
     return ['items' => $items, 'total' => $total];
 }
+
+function no_background_images(): array
+{
+    return ['sarden1.png', 'salmon1.png', 'mackerel.png', 'tuna1.png', '33.png', '2.png', '4.png', 'all1.png'];
+}
+
+function has_bg_image(?string $image): bool
+{
+    return $image !== null && $image !== '' && !in_array($image, no_background_images(), true);
+}
