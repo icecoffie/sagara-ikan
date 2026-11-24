@@ -96,16 +96,17 @@ $appMockup = asset('assets/' . rawurlencode('mockup app sagara ikan.png'));
 
     <div class="menu-grid">
       <?php if ($menu): foreach ($menu as $i => $m): ?>
-        <article class="dish reveal <?= 'd' . (($i % 3) + 1) ?>" data-cat="<?= e($m['category_slug']) ?>">
-          <div class="thumb-wrap"><img src="<?= e($dishImage($m)) ?>" alt="<?= e($m['name']) ?>"></div>
-          <div class="body">
-            <div class="tag"><?= e($m['category_name']) ?></div>
-            <h3><?= e($m['name']) ?></h3>
-            <div class="price"><?= rupiah($m['price']) ?></div>
-            <form method="post" action="<?= url('cart/add/' . $m['id']) ?>" class="order-form">
-              <?= Csrf::field() ?>
-              <button type="submit" class="btn-order">Pesan Sekarang <ion-icon name="cart-outline"></ion-icon></button>
-            </form>
+        <article class="menu-item reveal <?= 'd' . (($i % 3) + 1) ?>" data-cat="<?= e($m['category_slug']) ?>">
+          <img src="<?= e($dishImage($m)) ?>" alt="<?= e($m['name']) ?>">
+          <div class="mi-body">
+            <h3 class="title"><?= e($m['name']) ?></h3>
+            <div class="order">
+              <span class="price"><?= rupiah($m['price']) ?></span>
+              <form method="post" action="<?= url('cart/add/' . $m['id']) ?>" class="order-form">
+                <?= Csrf::field() ?>
+                <button type="submit" class="btn-menu">Pesan Sekarang</button>
+              </form>
+            </div>
           </div>
         </article>
       <?php endforeach; else: ?>
@@ -172,9 +173,10 @@ $appMockup = asset('assets/' . rawurlencode('mockup app sagara ikan.png'));
   <footer id="kontak" class="foot">
     <div class="wrap">
       <div class="app-cta reveal">
+        <div class="app-visual"><img src="<?= $appMockup ?>" alt="Aplikasi Sagara Ikan"></div>
         <div class="app-text">
           <h3>Unduh Aplikasi Sagara Ikan</h3>
-          <p>Pesan lebih cepat, simpan menu favorit, dan nikmati promo eksklusif langsung dari genggaman Anda.</p>
+          <p>Pesan lebih cepat, simpan favorit, dan nikmati promo eksklusif hanya di aplikasi.</p>
           <div class="store-badges">
             <a href="#" class="store-badge" aria-label="Google Play">
               <ion-icon name="logo-google-playstore"></ion-icon>
@@ -186,7 +188,6 @@ $appMockup = asset('assets/' . rawurlencode('mockup app sagara ikan.png'));
             </a>
           </div>
         </div>
-        <div class="app-visual"><img src="<?= $appMockup ?>" alt="Aplikasi Sagara Ikan"></div>
       </div>
     </div>
 
@@ -236,7 +237,7 @@ $appMockup = asset('assets/' . rawurlencode('mockup app sagara ikan.png'));
   <script>
     (function () {
       var tabs = document.querySelectorAll('#catTabs li');
-      var items = document.querySelectorAll('.menu-grid .dish');
+      var items = document.querySelectorAll('.menu-grid .menu-item');
       tabs.forEach(function (t) {
         t.addEventListener('click', function () {
           tabs.forEach(function (x) { x.classList.remove('active'); });
