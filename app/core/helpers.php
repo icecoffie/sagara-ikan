@@ -1,11 +1,6 @@
 <?php
 if (!defined('SAGARA_APP')) { http_response_code(403); exit('Forbidden'); }
 
-/**
- * Global helper functions used across controllers and views.
- */
-
-/** Detect the application base URL (folder containing index.php), no trailing slash. */
 function base_url(): string
 {
     static $base = null;
@@ -16,48 +11,39 @@ function base_url(): string
     if (!empty($configured)) {
         return $base = rtrim($configured, '/');
     }
-    // SCRIPT_NAME is like /sub/index.php -> base = /sub
+
     $script = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
     $dir = str_replace('\\', '/', dirname($script));
     return $base = ($dir === '/' ? '' : rtrim($dir, '/'));
 }
 
-/**
- * Build an app URL for a route. Uses PATH_INFO through index.php so it works
- * on any host, with or without mod_rewrite.
- */
 function url(string $path = ''): string
 {
     $path = ltrim($path, '/');
     return base_url() . '/index.php' . ($path === '' ? '' : '/' . $path);
 }
 
-/** URL for a file under public_html/assets etc. */
 function asset(string $path): string
 {
     return base_url() . '/' . ltrim($path, '/');
 }
 
-/** Escape output for HTML. */
 function e($value): string
 {
     return htmlspecialchars((string) ($value ?? ''), ENT_QUOTES, 'UTF-8');
 }
 
-/** Format an integer amount as Indonesian Rupiah. */
 function rupiah($amount): string
 {
     return 'Rp' . number_format((float) $amount, 0, ',', '.');
 }
 
-/** Redirect to an app route and stop. */
 function redirect(string $path): void
 {
     header('Location: ' . url($path));
     exit;
 }
 
-/** Require an authenticated session or bounce to login. */
 function require_login(): void
 {
     if (!Auth::check()) {
@@ -66,7 +52,6 @@ function require_login(): void
     }
 }
 
-/** Require a specific permission or render a 403 page. */
 function require_permission(string $permission): void
 {
     require_login();
@@ -75,13 +60,11 @@ function require_permission(string $permission): void
     }
 }
 
-/** Convenience wrapper for templates. */
 function can(string $permission): bool
 {
     return Auth::can($permission);
 }
 
-/** Emit an HTTP error page and stop. */
 function abort(int $code, string $message = ''): void
 {
     http_response_code($code);
@@ -99,8 +82,6 @@ function abort(int $code, string $message = ''): void
     exit;
 }
 
-/* ---------------- Flash messages ---------------- */
-
 function flash(?string $type = null, ?string $message = null)
 {
     if ($type === null) {
@@ -110,8 +91,6 @@ function flash(?string $type = null, ?string $message = null)
     }
     $_SESSION['_flash'][$type] = $message;
 }
-
-/* ---------------- Old input (repopulate forms) ---------------- */
 
 function flash_input(array $input): void
 {
@@ -128,9 +107,6 @@ function clear_old(): void
     unset($_SESSION['_old']);
 }
 
-/* ---------------- Pagination ---------------- */
-
-/** Compute LIMIT/OFFSET + page metadata. */
 function paginate(int $total, int $perPage = 10, string $pageParam = 'page'): array
 {
     $pages = max(1, (int) ceil($total / $perPage));
@@ -144,7 +120,6 @@ function paginate(int $total, int $perPage = 10, string $pageParam = 'page'): ar
     ];
 }
 
-/** Render pagination links preserving current query string. */
 function pagination_links(array $p, string $route): string
 {
     if ($p['pages'] <= 1) {
@@ -170,8 +145,6 @@ function pagination_links(array $p, string $route): string
     return $html;
 }
 
-/* ---------------- Activity log ---------------- */
-
 function log_activity(string $action, ?string $detail = null): void
 {
     try {
@@ -181,11 +154,9 @@ function log_activity(string $action, ?string $detail = null): void
             [Auth::id(), $action, $detail, $_SERVER['REMOTE_ADDR'] ?? null]
         );
     } catch (Throwable $e) {
-        // Logging must never break the request.
+
     }
 }
-
-/* ---------------- Misc input helpers ---------------- */
 
 function input(string $key, $default = null)
 {
@@ -197,7 +168,6 @@ function post(string $key, $default = null)
     return $_POST[$key] ?? $default;
 }
 
-/** Build a querystring for current filters, optionally overriding keys. */
 function query_with(array $overrides = []): string
 {
     return http_build_query(array_merge($_GET, $overrides));

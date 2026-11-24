@@ -1,9 +1,6 @@
 <?php
 if (!defined('SAGARA_APP')) { http_response_code(403); exit('Forbidden'); }
 
-/**
- * Loads and exposes configuration from app/config/config.php.
- */
 class Config
 {
     private static array $data = [];

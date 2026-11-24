@@ -1,14 +1,10 @@
 <?php
 if (!defined('SAGARA_APP')) { http_response_code(403); exit('Forbidden'); }
 
-/**
- * Thin PDO wrapper (singleton). Everything uses prepared statements.
- */
 class Database
 {
     private static ?PDO $pdo = null;
 
-    /** Get the shared PDO connection. */
     public static function conn(): PDO
     {
         if (self::$pdo instanceof PDO) {
@@ -41,7 +37,6 @@ class Database
         return self::$pdo;
     }
 
-    /** Run a query with bound params, return the statement. */
     public static function run(string $sql, array $params = []): PDOStatement
     {
         $stmt = self::conn()->prepare($sql);
@@ -49,26 +44,22 @@ class Database
         return $stmt;
     }
 
-    /** Fetch a single row (or null). */
     public static function first(string $sql, array $params = []): ?array
     {
         $row = self::run($sql, $params)->fetch();
         return $row === false ? null : $row;
     }
 
-    /** Fetch all rows. */
     public static function all(string $sql, array $params = []): array
     {
         return self::run($sql, $params)->fetchAll();
     }
 
-    /** Fetch a single scalar value. */
     public static function scalar(string $sql, array $params = [])
     {
         return self::run($sql, $params)->fetchColumn();
     }
 
-    /** Last inserted id. */
     public static function lastId(): string
     {
         return self::conn()->lastInsertId();

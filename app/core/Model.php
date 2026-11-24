@@ -1,10 +1,6 @@
 <?php
 if (!defined('SAGARA_APP')) { http_response_code(403); exit('Forbidden'); }
 
-/**
- * Lightweight active-record-ish base model. Subclasses set $table and
- * $fillable. All queries use prepared statements via Database.
- */
 abstract class Model
 {
     protected static string $table = '';
@@ -33,7 +29,6 @@ abstract class Model
         return (int) Database::scalar('SELECT COUNT(*) FROM ' . static::$table);
     }
 
-    /** Insert a row from an associative array (filtered by $fillable). */
     public static function create(array $data): int
     {
         $data = static::only($data);
@@ -45,7 +40,6 @@ abstract class Model
         return (int) Database::lastId();
     }
 
-    /** Update a row by id. */
     public static function update(int $id, array $data): void
     {
         $data = static::only($data);
@@ -63,7 +57,6 @@ abstract class Model
         Database::run('DELETE FROM ' . static::$table . ' WHERE id = ?', [$id]);
     }
 
-    /** Keep only fillable keys. */
     protected static function only(array $data): array
     {
         if (empty(static::$fillable)) {

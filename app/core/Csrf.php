@@ -1,9 +1,6 @@
 <?php
 if (!defined('SAGARA_APP')) { http_response_code(403); exit('Forbidden'); }
 
-/**
- * CSRF token generation and verification for POST forms.
- */
 class Csrf
 {
     private const KEY = '_csrf_token';
@@ -16,7 +13,6 @@ class Csrf
         return $_SESSION[self::KEY];
     }
 
-    /** Hidden input to drop inside every POST form. */
     public static function field(): string
     {
         return '<input type="hidden" name="' . self::KEY . '" value="'
@@ -30,10 +26,6 @@ class Csrf
             && hash_equals($_SESSION[self::KEY], $token);
     }
 
-    /**
-     * Guard: abort with 403 on any POST that fails CSRF validation.
-     * Call at the start of handling a POST request.
-     */
     public static function verifyPost(): void
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
