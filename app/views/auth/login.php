@@ -25,7 +25,7 @@
         <?= Csrf::field() ?>
         <div class="field">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" value="<?= e($oldEmail) ?>" placeholder="nama@sagararesto.test" required autofocus>
+          <input type="email" id="email" name="email" value="<?= e($oldEmail) ?>" placeholder="nama@sagararesto.app" required autofocus>
         </div>
         <div class="field">
           <label for="password">Kata Sandi</label>
@@ -35,16 +35,6 @@
           <ion-icon name="log-in-outline"></ion-icon> Masuk
         </button>
       </form>
-
-      <div class="auth-demo">
-        <b>Akun demo:</b>
-        <table>
-          <tr><td>admin@sagararesto.test</td><td>Admin#2026</td></tr>
-          <tr><td>manajer@sagararesto.test</td><td>Manajer#2026</td></tr>
-          <tr><td>kasir@sagararesto.test</td><td>Kasir#2026</td></tr>
-          <tr><td>pelayan@sagararesto.test</td><td>Pelayan#2026</td></tr>
-        </table>
-      </div>
 
       <p style="text-align:center;margin-top:18px;font-size:14px;">
         <a href="<?= url('') ?>">&larr; Kembali ke situs</a>

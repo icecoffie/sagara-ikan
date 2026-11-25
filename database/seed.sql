@@ -4,10 +4,10 @@
 --  Import AFTER schema.sql, into the same database.
 --
 --  Demo accounts (plaintext passwords for documentation):
---    admin@sagararesto.test    / Admin#2026     (Admin)
---    manajer@sagararesto.test  / Manajer#2026   (Manajer)
---    kasir@sagararesto.test    / Kasir#2026     (Kasir)
---    pelayan@sagararesto.test  / Pelayan#2026   (Pelayan)
+--    admin@sagararesto.app    / Admin#2026     (Admin)
+--    manajer@sagararesto.app  / Manajer#2026   (Manajer)
+--    kasir@sagararesto.app    / Kasir#2026     (Kasir)
+--    pelayan@sagararesto.app  / Pelayan#2026   (Pelayan)
 -- ============================================================
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -103,10 +103,10 @@ SELECT 4, p.id FROM permissions p WHERE p.slug IN (
 
 -- ---------------- Users ----------------
 INSERT INTO `users` (`name`, `email`, `password`, `role_id`, `is_active`) VALUES
-('Administrator', 'admin@sagararesto.test',   '$2y$12$r/QGgq29nq7SDcUDCANsSeUYKWrXxTrk8aHohAvgLdcW3re/bvGUm', 1, 1),
-('Maya Manajer',  'manajer@sagararesto.test', '$2y$12$gF8XR05HBbjni6uSbpOdNusirIgm1BLzhy5YTyyAoaWJKW1/7nvcm', 2, 1),
-('Kiki Kasir',    'kasir@sagararesto.test',   '$2y$12$q6mktnURaxAgrHOabFU6POm2EKCVekiTD1Cl7x0WDC/MOELNvtzeu', 3, 1),
-('Pandu Pelayan', 'pelayan@sagararesto.test', '$2y$12$e33.g4gko0iZdqzJ94N/2eNEWgy0AJrvOeC9/OWDB2dq2Zl1fIr/a', 4, 1);
+('Administrator', 'admin@sagararesto.app',   '$2y$12$r/QGgq29nq7SDcUDCANsSeUYKWrXxTrk8aHohAvgLdcW3re/bvGUm', 1, 1),
+('Maya Manajer',  'manajer@sagararesto.app', '$2y$12$gF8XR05HBbjni6uSbpOdNusirIgm1BLzhy5YTyyAoaWJKW1/7nvcm', 2, 1),
+('Kiki Kasir',    'kasir@sagararesto.app',   '$2y$12$q6mktnURaxAgrHOabFU6POm2EKCVekiTD1Cl7x0WDC/MOELNvtzeu', 3, 1),
+('Pandu Pelayan', 'pelayan@sagararesto.app', '$2y$12$e33.g4gko0iZdqzJ94N/2eNEWgy0AJrvOeC9/OWDB2dq2Zl1fIr/a', 4, 1);
 
 -- ---------------- Categories ----------------
 INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `is_active`) VALUES
@@ -184,7 +184,7 @@ INSERT INTO `order_items` (`order_id`, `menu_item_id`, `item_name`, `qty`, `pric
 
 -- ---------------- Activity log sample ----------------
 INSERT INTO `activity_logs` (`user_id`, `action`, `detail`, `ip_address`, `created_at`) VALUES
-(1, 'login',  'User masuk: admin@sagararesto.test', '127.0.0.1', DATE_SUB(NOW(), INTERVAL 2 DAY)),
+(1, 'login',  'User masuk: admin@sagararesto.app', '127.0.0.1', DATE_SUB(NOW(), INTERVAL 2 DAY)),
 (3, 'order.pay', 'Pembayaran pesanan ORD-0006',     '127.0.0.1', DATE_SUB(NOW(), INTERVAL 2 DAY)),
 (2, 'menu.create', 'Menambah menu baru',            '127.0.0.1', DATE_SUB(NOW(), INTERVAL 1 DAY)),
 (4, 'reservation.create', 'Reservasi untuk Rani Pratiwi', '127.0.0.1', NOW());

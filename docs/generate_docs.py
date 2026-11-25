@@ -13,10 +13,10 @@ SHOTS = os.path.join(HERE, "screenshots")
 OUTPUT = os.path.join(HERE, "Dokumentasi-Sagara-Resto.docx")
 
 DEMO_ACCOUNTS = [
-    ("Admin", "admin@sagararesto.test", "Admin#2026"),
-    ("Manajer", "manajer@sagararesto.test", "Manajer#2026"),
-    ("Kasir", "kasir@sagararesto.test", "Kasir#2026"),
-    ("Pelayan", "pelayan@sagararesto.test", "Pelayan#2026"),
+    ("Admin", "admin@sagararesto.app", "Admin#2026"),
+    ("Manajer", "manajer@sagararesto.app", "Manajer#2026"),
+    ("Kasir", "kasir@sagararesto.app", "Kasir#2026"),
+    ("Pelayan", "pelayan@sagararesto.app", "Pelayan#2026"),
 ]
 
 ROLE_SUMMARY = {

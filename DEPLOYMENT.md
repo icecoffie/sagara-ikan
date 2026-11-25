@@ -1,6 +1,6 @@
 # Deployment — cPanel Shared Hosting
 
-Panduan langkah demi langkah men-deploy **Sagara Resto** ke cPanel. Placeholder yang Anda isi sendiri: **`{{LIVE_URL}}`** dan **nama subdomain**.
+Panduan langkah demi langkah men-deploy **Sagara Resto** ke cPanel. Target: **`https://sagara.msync.web.id`** (subdomain `sagara` pada `msync.web.id`).
 
 Rekomendasi: letakkan folder `app/` **di luar** webroot agar kode aplikasi tidak bisa diakses langsung. cPanel mengizinkan docroot subdomain diarahkan ke subfolder.
 
@@ -9,7 +9,7 @@ Rekomendasi: letakkan folder `app/` **di luar** webroot agar kode aplikasi tidak
 ## 1. Buat Subdomain
 
 1. cPanel → **Domains / Subdomains**.
-2. Buat subdomain, mis. `resto` → `{{LIVE_URL}}` = `https://resto.domainanda.com`.
+2. Buat subdomain `sagara` pada domain `msync.web.id` → `https://sagara.msync.web.id`.
 3. Saat membuat, atur **Document Root** ke folder khusus, mis. `sagara/public_html`.
    - Dengan begitu struktur di server menjadi:
      ```
@@ -64,9 +64,9 @@ Rekomendasi: letakkan folder `app/` **di luar** webroot agar kode aplikasi tidak
 
 ## 7. Verifikasi (Checklist)
 
-- [ ] Buka `{{LIVE_URL}}` → landing publik tampil, section menu berisi data.
-- [ ] Buka `{{LIVE_URL}}/index.php/login`.
-- [ ] Login **admin@sagararesto.test / `Admin#2026`** → dashboard + grafik tampil.
+- [ ] Buka `https://sagara.msync.web.id` → landing publik tampil, section menu berisi data.
+- [ ] Buka `https://sagara.msync.web.id/index.php/login`.
+- [ ] Login **admin@sagararesto.app / `Admin#2026`** → dashboard + grafik tampil.
 - [ ] Login **manajer** → bisa CRUD menu/kategori, tidak ada menu Pengguna/Role.
 - [ ] Login **kasir** → bisa buat & bayar pesanan, cetak struk.
 - [ ] Login **pelayan** → bisa ambil pesanan & reservasi, tidak bisa bayar.
@@ -96,6 +96,6 @@ Untuk PaaS (bukan cPanel):
    ```
    (atau gunakan image PHP Apache dengan docroot `public_html`).
 4. Set kredensial DB lewat **environment**; sesuaikan `app/config/config.php` membaca `getenv()` bila ingin (opsional), atau buat `config.php` saat build.
-5. `base_url` biarkan kosong (auto-detect). Buka URL yang diberikan platform = `{{LIVE_URL}}`.
+5. `base_url` biarkan kosong (auto-detect). Buka URL yang diberikan platform = `https://sagara.msync.web.id`.
 
 > Jangan commit kredensial asli. Gunakan environment variables / secret manager platform.
