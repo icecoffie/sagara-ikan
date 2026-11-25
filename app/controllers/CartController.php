@@ -48,6 +48,38 @@ class CartController extends Controller
         redirect('cart');
     }
 
+    public function qty($id): void
+    {
+        $this->guardPost();
+        $id = (int) $id;
+        $op = post('op');
+        $current = (int) (cart()[$id] ?? 0);
+        if ($op === 'inc') {
+            $new = $current + 1;
+        } elseif ($op === 'dec') {
+            $new = $current - 1;
+        } else {
+            $new = max(0, (int) post('qty', $current));
+        }
+        cart_set($id, $new);
+
+        $data = cart_items();
+        $subtotal = 0.0;
+        $qty = 0;
+        foreach ($data['items'] as $it) {
+            if ((int) $it['id'] === $id) { $subtotal = (float) $it['subtotal']; $qty = (int) $it['qty']; }
+        }
+        $this->json([
+            'ok'       => true,
+            'removed'  => $qty <= 0,
+            'qty'      => $qty,
+            'subtotal' => rupiah($subtotal),
+            'total'    => rupiah($data['total']),
+            'count'    => cart_count(),
+            'empty'    => empty($data['items']),
+        ]);
+    }
+
     public function remove($id): void
     {
         $this->guardPost();

@@ -142,7 +142,7 @@
         <span class="pill">Ulasan Pelanggan</span>
         <h2 class="sec-title">Setiap kunjungan jadi kenangan</h2>
         <p class="sec-sub">Ribuan pelanggan mempercayai Sagara Ikan untuk momen spesial mereka.</p>
-        <img class="reviews-photo" src="<?= asset('assets/salmon1.png') ?>" alt="Hidangan Sagara Ikan">
+        <img class="reviews-photo" src="<?= asset('assets/review.png') ?>" alt="Hidangan Sagara Ikan">
       </div>
       <div class="review-cards">
         <div class="review reveal">
