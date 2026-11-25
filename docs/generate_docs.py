@@ -47,8 +47,8 @@ SCREENSHOT_PLAN = [
     ("01-landing.png", "Landing page publik (menu dari database)", None, "/index.php/"),
     ("02-login.png", "Halaman login", None, "/index.php/login"),
     ("03-dashboard-admin.png", "Dashboard — Admin (statistik + grafik omzet)", "admin", "/index.php/dashboard"),
-    ("04-menu-list.png", "Daftar Menu (search, filter, pagination)", "admin", "/index.php/menu"),
-    ("05-menu-form.png", "Form Tambah Menu (upload gambar)", "admin", "/index.php/menu/create"),
+    ("04-menu-list.png", "Daftar Menu (search, filter, pagination)", "admin", "/index.php/menus"),
+    ("05-menu-form.png", "Form Tambah Menu (upload gambar)", "admin", "/index.php/menus/create"),
     ("06-category-list.png", "Daftar Kategori", "admin", "/index.php/category"),
     ("07-table-list.png", "Daftar Meja", "admin", "/index.php/table"),
     ("08-reservation-list.png", "Daftar Reservasi", "admin", "/index.php/reservation"),
@@ -63,10 +63,10 @@ SCREENSHOT_PLAN = [
     ("17-dashboard-manajer.png", "Dashboard — Manajer", "manajer", "/index.php/dashboard"),
     ("18-dashboard-kasir.png", "Dashboard — Kasir", "kasir", "/index.php/dashboard"),
     ("19-dashboard-pelayan.png", "Dashboard — Pelayan", "pelayan", "/index.php/dashboard"),
-    ("20-cart.png", "Keranjang pelanggan (tanpa login)", "shop", "/index.php/cart"),
-    ("21-checkout.png", "Checkout pelanggan (dine-in / takeaway)", "shop", "/index.php/cart/checkout"),
-    ("22-confirm.png", "Konfirmasi pesanan pelanggan", "shop", "/index.php/cart/confirm/ORD-0011"),
-    ("23-track.png", "Lacak status pesanan", "shop", "/index.php/cart/track?order_number=ORD-0011"),
+    ("20-cart.png", "Keranjang pelanggan (tanpa login)", "shop", "/index.php/keranjang"),
+    ("21-checkout.png", "Checkout pelanggan (dine-in / takeaway)", "shop", "/index.php/keranjang/checkout"),
+    ("22-confirm.png", "Konfirmasi pesanan pelanggan", "shop", "/index.php/keranjang/confirm/ORD-0011"),
+    ("23-track.png", "Lacak status pesanan", "shop", "/index.php/pantau?order_number=ORD-0011"),
 ]
 
 

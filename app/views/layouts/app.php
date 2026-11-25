@@ -16,7 +16,7 @@ $nav = [
     ['table', 'Meja', 'restaurant-outline', 'table.view'],
   ],
   'Katalog' => [
-    ['menu', 'Menu', 'fast-food-outline', 'menu.view'],
+    ['menus', 'Menu', 'fast-food-outline', 'menu.view'],
     ['category', 'Kategori', 'pricetags-outline', 'category.view'],
   ],
   'Analitik' => [

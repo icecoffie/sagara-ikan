@@ -1,12 +1,12 @@
 <?php if (!defined('SAGARA_APP')) { http_response_code(403); exit('Forbidden'); } ?>
 <?php
 $isEdit = ($mode === 'edit');
-$action = $isEdit ? url('menu/update/' . $item['id']) : url('menu/store');
+$action = $isEdit ? url('menus/update/' . $item['id']) : url('menus/store');
 $val = fn($k, $d = '') => e($item[$k] ?? $d);
 ?>
 <div class="panel" style="max-width:760px;">
   <div class="panel-head"><h2><?= $isEdit ? 'Ubah' : 'Tambah' ?> Menu</h2>
-    <a href="<?= url('menu') ?>" class="btn secondary sm"><ion-icon name="arrow-back-outline"></ion-icon> Kembali</a>
+    <a href="<?= url('menus') ?>" class="btn secondary sm"><ion-icon name="arrow-back-outline"></ion-icon> Kembali</a>
   </div>
   <div class="panel-body">
     <form method="post" action="<?= $action ?>" enctype="multipart/form-data">
@@ -54,7 +54,7 @@ $val = fn($k, $d = '') => e($item[$k] ?? $d);
       </div>
       <div class="form-actions">
         <button class="btn" type="submit"><ion-icon name="save-outline"></ion-icon> Simpan</button>
-        <a class="btn secondary" href="<?= url('menu') ?>">Batal</a>
+        <a class="btn secondary" href="<?= url('menus') ?>">Batal</a>
       </div>
     </form>
   </div>

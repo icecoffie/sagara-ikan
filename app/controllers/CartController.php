@@ -26,8 +26,8 @@ class CartController extends Controller
 
         flash('success', $menu['name'] . ' ditambahkan ke keranjang.');
         $back = (string) post('back', '');
-        if ($back === 'cart') {
-            redirect('cart');
+        if ($back === 'keranjang') {
+            redirect('keranjang');
         }
         $ref = $_SERVER['HTTP_REFERER'] ?? '';
         $host = $_SERVER['HTTP_HOST'] ?? '';
@@ -45,7 +45,7 @@ class CartController extends Controller
             cart_set((int) $mid, (int) $qty);
         }
         flash('success', 'Keranjang diperbarui.');
-        redirect('cart');
+        redirect('keranjang');
     }
 
     public function qty($id): void
@@ -85,14 +85,14 @@ class CartController extends Controller
         $this->guardPost();
         cart_remove((int) $id);
         flash('info', 'Item dihapus dari keranjang.');
-        redirect('cart');
+        redirect('keranjang');
     }
 
     public function clear(): void
     {
         $this->guardPost();
         cart_clear();
-        redirect('cart');
+        redirect('keranjang');
     }
 
     public function checkout(): void
@@ -100,7 +100,7 @@ class CartController extends Controller
         $cart = cart_items();
         if (!$cart['items']) {
             flash('error', 'Keranjang masih kosong.');
-            redirect('cart');
+            redirect('keranjang');
         }
         View::renderPublic('public/checkout', array_merge($cart, [
             'tables' => DiningTable::options(),
@@ -115,7 +115,7 @@ class CartController extends Controller
         $cart = cart_items();
         if (!$cart['items']) {
             flash('error', 'Keranjang masih kosong.');
-            redirect('cart');
+            redirect('keranjang');
         }
 
         $data = [
@@ -174,7 +174,7 @@ class CartController extends Controller
         log_activity('order.create', 'Pesanan pelanggan ' . $number . ' (' . $data['customer_name'] . ')');
         cart_clear();
         $_SESSION['last_order'] = $number;
-        redirect('cart/confirm/' . $number);
+        redirect('keranjang/confirm/' . $number);
     }
 
     public function confirm($number): void

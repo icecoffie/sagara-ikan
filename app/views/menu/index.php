@@ -3,7 +3,7 @@
   <div class="panel-head">
     <h2>Daftar Menu</h2>
     <div class="toolbar">
-      <form method="get" action="<?= url('menu') ?>">
+      <form method="get" action="<?= url('menus') ?>">
         <input type="text" name="q" value="<?= e($filters['q']) ?>" placeholder="Cari menu...">
         <select name="category_id">
           <option value="">Semua Kategori</option>
@@ -19,7 +19,7 @@
         <button class="btn secondary sm" type="submit"><ion-icon name="search-outline"></ion-icon> Filter</button>
       </form>
       <?php if (can('menu.create')): ?>
-        <a href="<?= url('menu/create') ?>" class="btn sm"><ion-icon name="add-outline"></ion-icon> Tambah</a>
+        <a href="<?= url('menus/create') ?>" class="btn sm"><ion-icon name="add-outline"></ion-icon> Tambah</a>
       <?php endif; ?>
     </div>
   </div>
@@ -36,9 +36,9 @@
               <td><?= rupiah($m['price']) ?></td>
               <td><span class="badge <?= $m['is_available'] ? 'green' : 'gray' ?>"><?= $m['is_available'] ? 'Tersedia' : 'Habis' ?></span></td>
               <td class="actions">
-                <?php if (can('menu.update')): ?><a class="btn secondary sm" href="<?= url('menu/edit/' . $m['id']) ?>"><ion-icon name="create-outline"></ion-icon></a><?php endif; ?>
+                <?php if (can('menu.update')): ?><a class="btn secondary sm" href="<?= url('menus/edit/' . $m['id']) ?>"><ion-icon name="create-outline"></ion-icon></a><?php endif; ?>
                 <?php if (can('menu.delete')): ?>
-                  <form method="post" action="<?= url('menu/delete/' . $m['id']) ?>" style="display:inline" onsubmit="return confirm('Hapus menu ini?')">
+                  <form method="post" action="<?= url('menus/delete/' . $m['id']) ?>" style="display:inline" onsubmit="return confirm('Hapus menu ini?')">
                     <?= Csrf::field() ?><button class="btn danger sm" type="submit"><ion-icon name="trash-outline"></ion-icon></button>
                   </form>
                 <?php endif; ?>

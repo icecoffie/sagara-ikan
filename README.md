@@ -11,7 +11,7 @@ Aplikasi restoran seafood **Sagara Ikan**: landing page modern + **pemesanan onl
 
 **Sisi Pelanggan (publik, tanpa login)**
 - Landing page modern (tema gradient biru laut) dengan menu unggulan dari database.
-- Halaman menu lengkap `/pesanan` + halaman **detail item** `/pesanan/item/{id}`.
+- Halaman menu lengkap `/menu` + halaman **detail item** `/menu/item/{id}`.
 - **Keranjang ala marketplace**: stepper − / + per item, hapus otomatis saat di bawah 1, total terhitung otomatis (AJAX, tanpa reload).
 - **Checkout tanpa akun**: makan di tempat (pilih meja) atau bawa pulang → dapat nomor pesanan + **lacak status**.
 - Pesanan pelanggan otomatis masuk ke panel staf (ditandai "Online").

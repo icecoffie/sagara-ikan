@@ -8,11 +8,11 @@
       <div class="cart-empty" id="cartEmpty">
         <ion-icon name="cart-outline"></ion-icon>
         <p style="margin:12px 0 18px;">Keranjangmu masih kosong.</p>
-        <a href="<?= url('pesanan') ?>" class="btn">Lihat Menu</a>
+        <a href="<?= url('menu') ?>" class="btn">Lihat Menu</a>
       </div>
     </div>
   <?php else: ?>
-    <div class="cart-card" id="cartCard" data-csrf="<?= e(Csrf::token()) ?>" data-url="<?= url('cart/qty') ?>">
+    <div class="cart-card" id="cartCard" data-csrf="<?= e(Csrf::token()) ?>" data-url="<?= url('keranjang/qty') ?>">
       <?php foreach ($items as $it): ?>
         <div class="cart-row" data-id="<?= $it['id'] ?>">
           <img src="<?= e(menu_image_url($it['image'])) ?>" alt="<?= e($it['name']) ?>">
@@ -31,10 +31,10 @@
     </div>
 
     <div class="cart-summary" id="cartSummary">
-      <a class="btn ghost" href="<?= url('pesanan') ?>"><ion-icon name="add-outline"></ion-icon> Tambah Menu</a>
+      <a class="btn ghost" href="<?= url('menu') ?>"><ion-icon name="add-outline"></ion-icon> Tambah Menu</a>
       <div style="display:flex;align-items:center;gap:20px;">
         <div>Total: <span class="total" id="cartTotal"><?= rupiah($total) ?></span></div>
-        <a class="btn" href="<?= url('cart/checkout') ?>">Checkout <ion-icon name="arrow-forward-outline"></ion-icon></a>
+        <a class="btn" href="<?= url('keranjang/checkout') ?>">Checkout <ion-icon name="arrow-forward-outline"></ion-icon></a>
       </div>
     </div>
   <?php endif; ?>
@@ -42,7 +42,7 @@
 
 <script>
 (function () {
-  var card = document.getElementById('cartCard');
+  var card = document.getElementById('keranjangCard');
   if (!card) return;
   var csrf = card.getAttribute('data-csrf');
   var base = card.getAttribute('data-url');
@@ -50,15 +50,15 @@
   function setBadge(n) {
     document.querySelectorAll('.cart-link').forEach(function (link) {
       var b = link.querySelector('.cart-badge');
-      if (!b && n > 0) { b = document.createElement('span'); b.className = 'cart-badge'; link.appendChild(b); }
+      if (!b && n > 0) { b = document.createElement('span'); b.className = 'keranjang-badge'; link.appendChild(b); }
       if (b) { if (n > 0) b.textContent = n; else b.remove(); }
     });
   }
   function showEmpty() {
-    document.getElementById('cartWrap').innerHTML =
+    document.getElementById('keranjangWrap').innerHTML =
       '<div class="cart-card"><div class="cart-empty"><ion-icon name="cart-outline"></ion-icon>' +
       '<p style="margin:12px 0 18px;">Keranjangmu masih kosong.</p>' +
-      '<a href="<?= url('pesanan') ?>" class="btn">Lihat Menu</a></div></div>';
+      '<a href="<?= url('menu') ?>" class="btn">Lihat Menu</a></div></div>';
   }
 
   function change(row, op) {
@@ -70,7 +70,7 @@
       .then(function (d) {
         if (!d || !d.ok) return;
         setBadge(d.count);
-        document.getElementById('cartTotal').textContent = d.total;
+        document.getElementById('keranjangTotal').textContent = d.total;
         if (d.removed) {
           row.style.transition = 'opacity .25s, transform .25s';
           row.style.opacity = '0'; row.style.transform = 'translateX(-12px)';

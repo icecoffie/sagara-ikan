@@ -1,5 +1,5 @@
 <?php if (!defined('SAGARA_APP')) { http_response_code(403); exit('Forbidden'); } ?>
-<a href="<?= url('pesanan') ?>" class="back-link"><ion-icon name="arrow-back-outline"></ion-icon> Kembali ke Menu</a>
+<a href="<?= url('menu') ?>" class="back-link"><ion-icon name="arrow-back-outline"></ion-icon> Kembali ke Menu</a>
 
 <div class="item-detail">
   <div class="item-photo"><img src="<?= e(menu_image_url($item['image'])) ?>" alt="<?= e($item['name']) ?>"></div>
@@ -9,9 +9,9 @@
     <div class="item-price"><?= rupiah($item['price']) ?></div>
     <p class="item-desc"><?= e($item['description'] ?: 'Hidangan laut segar pilihan, dimasak dengan bumbu khas Sagara Ikan.') ?></p>
 
-    <form method="post" action="<?= url('cart/add/' . $item['id']) ?>" class="item-order">
+    <form method="post" action="<?= url('keranjang/add/' . $item['id']) ?>" class="item-order">
       <?= Csrf::field() ?>
-      <input type="hidden" name="back" value="cart">
+      <input type="hidden" name="back" value="keranjang">
       <div class="qty-stepper">
         <button type="button" onclick="stepQty(-1)">&minus;</button>
         <input type="number" id="qty" name="qty" value="1" min="1" max="99">
@@ -34,12 +34,12 @@
   <div class="menu-grid">
     <?php foreach ($related as $m): ?>
       <article class="menu-item">
-        <a href="<?= url('pesanan/item/' . $m['id']) ?>" class="mi-img"><img src="<?= e(menu_image_url($m['image'])) ?>" alt="<?= e($m['name']) ?>"></a>
+        <a href="<?= url('menu/item/' . $m['id']) ?>" class="mi-img"><img src="<?= e(menu_image_url($m['image'])) ?>" alt="<?= e($m['name']) ?>"></a>
         <div class="mi-body">
-          <a href="<?= url('pesanan/item/' . $m['id']) ?>" class="mi-title-link"><h3 class="title"><?= e($m['name']) ?></h3></a>
+          <a href="<?= url('menu/item/' . $m['id']) ?>" class="mi-title-link"><h3 class="title"><?= e($m['name']) ?></h3></a>
           <div class="order">
             <span class="price"><?= rupiah($m['price']) ?></span>
-            <form method="post" action="<?= url('cart/add/' . $m['id']) ?>" class="order-form"><?= Csrf::field() ?><button class="btn-menu">Tambah</button></form>
+            <form method="post" action="<?= url('keranjang/add/' . $m['id']) ?>" class="order-form"><?= Csrf::field() ?><button class="btn-menu">Tambah</button></form>
           </div>
         </div>
       </article>

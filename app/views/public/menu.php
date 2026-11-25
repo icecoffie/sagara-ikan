@@ -16,13 +16,13 @@
   <?php if ($items): foreach ($items as $m): ?>
     <?php $slug = Database::scalar('SELECT slug FROM categories WHERE id=?', [$m['category_id']]); ?>
     <article class="menu-item" data-cat="<?= e($slug) ?>">
-      <a href="<?= url('pesanan/item/' . $m['id']) ?>" class="mi-img"><img src="<?= e(menu_image_url($m['image'])) ?>" alt="<?= e($m['name']) ?>"></a>
+      <a href="<?= url('menu/item/' . $m['id']) ?>" class="mi-img"><img src="<?= e(menu_image_url($m['image'])) ?>" alt="<?= e($m['name']) ?>"></a>
       <div class="mi-body">
-        <a href="<?= url('pesanan/item/' . $m['id']) ?>" class="mi-title-link"><h3 class="title"><?= e($m['name']) ?></h3></a>
+        <a href="<?= url('menu/item/' . $m['id']) ?>" class="mi-title-link"><h3 class="title"><?= e($m['name']) ?></h3></a>
         <p class="mi-desc"><?= e(mb_strimwidth((string)$m['description'], 0, 70, '…')) ?></p>
         <div class="order">
           <span class="price"><?= rupiah($m['price']) ?></span>
-          <form method="post" action="<?= url('cart/add/' . $m['id']) ?>" class="order-form">
+          <form method="post" action="<?= url('keranjang/add/' . $m['id']) ?>" class="order-form">
             <?= Csrf::field() ?>
             <button type="submit" class="btn-menu">Tambah</button>
           </form>

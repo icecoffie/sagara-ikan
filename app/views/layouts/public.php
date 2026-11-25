@@ -15,12 +15,12 @@
       <a href="<?= url('') ?>" class="nav-brand"><img src="<?= asset('assets/logo.png') ?>" alt="Sagara">Sagara<b>.</b></a>
       <nav class="nav-links" id="navLinks">
         <a href="<?= url('') ?>">Beranda</a>
-        <a href="<?= url('pesanan') ?>">Menu</a>
-        <a href="<?= url('cart/track') ?>">Lacak Pesanan</a>
+        <a href="<?= url('menu') ?>">Menu</a>
+        <a href="<?= url('pantau') ?>">Lacak Pesanan</a>
         <a href="<?= url('login') ?>" class="btn nav-login-mobile">Login Staf</a>
       </nav>
       <div class="nav-right">
-        <a href="<?= url('cart') ?>" class="cart-link"><ion-icon name="cart-outline"></ion-icon> <span class="cl-text">Keranjang</span><?php if ($cc): ?><span class="cart-badge"><?= $cc ?></span><?php endif; ?></a>
+        <a href="<?= url('keranjang') ?>" class="cart-link"><ion-icon name="cart-outline"></ion-icon> <span class="cl-text">Keranjang</span><?php if ($cc): ?><span class="cart-badge"><?= $cc ?></span><?php endif; ?></a>
         <a href="<?= url('login') ?>" class="btn nav-login-desktop">Login Staf</a>
         <button class="nav-toggle" id="navToggle" aria-label="Menu" onclick="var l=document.getElementById('navLinks');this.classList.toggle('active',l.classList.toggle('open'));"><ion-icon name="menu-outline"></ion-icon><ion-icon name="close-outline"></ion-icon></button>
       </div>

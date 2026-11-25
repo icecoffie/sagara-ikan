@@ -11,13 +11,14 @@ class Router
         'logout'      => ['AuthController', 'logout'],
         'dashboard'   => ['DashboardController', 'index'],
         'revenue-data'=> ['DashboardController', 'revenueData'],
+        'pantau'      => ['CartController', 'track'],
     ];
 
     private array $resources = [
-        'cart'        => 'CartController',
-        'pesanan'     => 'ShopController',
+        'keranjang'   => 'CartController',
+        'menu'        => 'ShopController',
+        'menus'       => 'MenuController',
         'category'    => 'CategoryController',
-        'menu'        => 'MenuController',
         'table'       => 'TableController',
         'reservation' => 'ReservationController',
         'order'       => 'OrderController',

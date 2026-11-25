@@ -18,14 +18,14 @@
       <a href="#beranda" class="nav-brand"><img src="<?= asset('assets/logo.png') ?>" alt="Sagara">Sagara<b>.</b></a>
       <nav class="nav-links" id="navLinks">
         <a href="#beranda">Beranda</a>
-        <a href="<?= url('pesanan') ?>">Menu</a>
+        <a href="<?= url('menu') ?>">Menu</a>
         <a href="#tentang">Tentang</a>
         <a href="#galeri">Ulasan</a>
         <a href="#kontak">Kontak</a>
         <a href="<?= url('login') ?>" class="btn nav-login-mobile">Login Staf</a>
       </nav>
       <div class="nav-right">
-        <a href="<?= url('cart') ?>" class="cart-link"><ion-icon name="cart-outline"></ion-icon> <span class="cl-text">Keranjang</span><?php if (!empty($cartCount)): ?><span class="cart-badge"><?= (int)$cartCount ?></span><?php endif; ?></a>
+        <a href="<?= url('keranjang') ?>" class="cart-link"><ion-icon name="cart-outline"></ion-icon> <span class="cl-text">Keranjang</span><?php if (!empty($cartCount)): ?><span class="cart-badge"><?= (int)$cartCount ?></span><?php endif; ?></a>
         <a href="<?= url('login') ?>" class="btn nav-login-desktop">Login Staf</a>
         <button class="nav-toggle" id="navToggle" aria-label="Menu" onclick="toggleNav(this)"><ion-icon name="menu-outline"></ion-icon><ion-icon name="close-outline"></ion-icon></button>
       </div>
@@ -44,7 +44,7 @@
         <h1 style="margin-top:18px;">Nikmati <span class="hl">Rasa Laut</span><br>Terbaik di Kota</h1>
         <p>Ikan segar pilihan tuna, sarden, salmon, hingga mackerel, dimasak dengan teknik terbaik. Pesan online tanpa perlu login.</p>
         <div class="hero-actions">
-          <a href="<?= url('pesanan') ?>" class="btn lg">Pesan Sekarang <ion-icon name="arrow-forward-outline"></ion-icon></a>
+          <a href="<?= url('menu') ?>" class="btn lg">Pesan Sekarang <ion-icon name="arrow-forward-outline"></ion-icon></a>
           <a href="#menu" class="btn ghost lg">Lihat Menu</a>
         </div>
         <div class="hero-trust">
@@ -69,7 +69,7 @@
         <span class="pill">Promo Hari Ini</span>
         <h2 class="sec-title">Tawaran spesial yang sayang dilewatkan</h2>
         <p class="sec-sub">Harga spesial untuk menu favorit, tersedia selama persediaan masih ada.</p>
-        <a href="<?= url('pesanan') ?>" class="btn" style="margin-top:22px;">Pesan Sekarang</a>
+        <a href="<?= url('menu') ?>" class="btn" style="margin-top:22px;">Pesan Sekarang</a>
       </div>
       <div class="specials-card reveal d1">
         <div class="row"><span class="n">Salmon Butter Lemon</span><span class="p">Rp110.000</span></div>
@@ -107,7 +107,7 @@
         <span class="pill">Menu Unggulan</span>
         <h2 class="sec-title">Menu favoritmu menanti</h2>
       </div>
-      <a href="<?= url('pesanan') ?>" class="btn ghost">Lihat Semua <ion-icon name="arrow-forward-outline"></ion-icon></a>
+      <a href="<?= url('menu') ?>" class="btn ghost">Lihat Semua <ion-icon name="arrow-forward-outline"></ion-icon></a>
     </div>
 
     <ul class="cat-tabs reveal" id="catTabs">
@@ -120,12 +120,12 @@
     <div class="menu-grid">
       <?php if ($menu): foreach ($menu as $i => $m): ?>
         <article class="menu-item reveal <?= 'd' . (($i % 3) + 1) ?>" data-cat="<?= e($m['category_slug']) ?>">
-          <a href="<?= url('pesanan/item/' . $m['id']) ?>" class="mi-img"><img src="<?= e(menu_image_url($m['image'])) ?>" alt="<?= e($m['name']) ?>"></a>
+          <a href="<?= url('menu/item/' . $m['id']) ?>" class="mi-img"><img src="<?= e(menu_image_url($m['image'])) ?>" alt="<?= e($m['name']) ?>"></a>
           <div class="mi-body">
-            <a href="<?= url('pesanan/item/' . $m['id']) ?>" class="mi-title-link"><h3 class="title"><?= e($m['name']) ?></h3></a>
+            <a href="<?= url('menu/item/' . $m['id']) ?>" class="mi-title-link"><h3 class="title"><?= e($m['name']) ?></h3></a>
             <div class="order">
               <span class="price"><?= rupiah($m['price']) ?></span>
-              <form method="post" action="<?= url('cart/add/' . $m['id']) ?>" class="order-form"><?= Csrf::field() ?><button type="submit" class="btn-menu">Pesan</button></form>
+              <form method="post" action="<?= url('keranjang/add/' . $m['id']) ?>" class="order-form"><?= Csrf::field() ?><button type="submit" class="btn-menu">Pesan</button></form>
             </div>
           </div>
         </article>
@@ -217,9 +217,9 @@
       </div>
       <div><h4>Jelajahi</h4><ul>
         <li><a href="#beranda">Beranda</a></li>
-        <li><a href="<?= url('pesanan') ?>">Menu &amp; Pesan</a></li>
+        <li><a href="<?= url('menu') ?>">Menu &amp; Pesan</a></li>
         <li><a href="#tentang">Tentang</a></li>
-        <li><a href="<?= url('cart/track') ?>">Lacak Pesanan</a></li>
+        <li><a href="<?= url('pantau') ?>">Lacak Pesanan</a></li>
         <li><a href="<?= url('login') ?>">Login Staf</a></li>
       </ul></div>
       <div><h4>Kontak</h4><ul>

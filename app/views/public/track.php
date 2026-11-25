@@ -3,7 +3,7 @@
 <h1 class="shop-title">Lacak Pesanan</h1>
 <p class="shop-sub">Masukkan nomor pesanan untuk melihat statusnya.</p>
 
-<form method="post" action="<?= url('cart/track') ?>" class="form-card" style="max-width:520px;display:flex;gap:10px;align-items:flex-end;">
+<form method="post" action="<?= url('pantau') ?>" class="form-card" style="max-width:520px;display:flex;gap:10px;align-items:flex-end;">
   <?= Csrf::field() ?>
   <div class="field" style="flex:1;margin:0;">
     <label for="order_number">Nomor Pesanan</label>

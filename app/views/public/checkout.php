@@ -4,7 +4,7 @@
 <p class="shop-sub">Tanpa perlu login. Isi data singkat lalu pesananmu langsung diteruskan ke kasir.</p>
 
 <div class="checkout-grid">
-  <form method="post" action="<?= url('cart/place') ?>" class="form-card">
+  <form method="post" action="<?= url('keranjang/place') ?>" class="form-card">
     <?= Csrf::field() ?>
     <div class="field">
       <label>Tipe Pesanan</label>
@@ -50,7 +50,7 @@
     <div style="display:flex;justify-content:space-between;margin-top:16px;font-weight:700;font-size:18px;">
       <span>Total</span><span><?= rupiah($total) ?></span>
     </div>
-    <a href="<?= url('cart') ?>" class="btn ghost" style="margin-top:18px;width:100%;justify-content:center;">Kembali ke Keranjang</a>
+    <a href="<?= url('keranjang') ?>" class="btn ghost" style="margin-top:18px;width:100%;justify-content:center;">Kembali ke Keranjang</a>
   </div>
 </div>
 

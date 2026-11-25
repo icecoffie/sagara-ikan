@@ -24,7 +24,7 @@
   </div>
 
   <div style="display:flex;gap:10px;justify-content:center;margin-top:26px;flex-wrap:wrap;">
-    <a href="<?= url('cart/track') ?>?order_number=<?= e(urlencode($order['order_number'])) ?>" class="btn ghost">Lacak Status</a>
+    <a href="<?= url('pantau') ?>?order_number=<?= e(urlencode($order['order_number'])) ?>" class="btn ghost">Lacak Status</a>
     <a href="<?= url('') ?>#menu" class="btn">Pesan Lagi</a>
   </div>
 </div>

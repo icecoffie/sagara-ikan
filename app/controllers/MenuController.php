@@ -41,7 +41,7 @@ class MenuController extends Controller
         MenuItem::create($data);
         log_activity('menu.create', 'Menambah menu: ' . $data['name']);
         flash('success', 'Menu berhasil ditambahkan.');
-        redirect('menu');
+        redirect('menus');
     }
 
     public function edit($id): void
@@ -73,7 +73,7 @@ class MenuController extends Controller
         MenuItem::update($id, $data);
         log_activity('menu.update', 'Mengubah menu: ' . $data['name']);
         flash('success', 'Menu berhasil diperbarui.');
-        redirect('menu');
+        redirect('menus');
     }
 
     public function delete($id): void
@@ -87,13 +87,13 @@ class MenuController extends Controller
             Database::run('UPDATE menu_items SET is_available = 0 WHERE id = ?', [$id]);
             log_activity('menu.update', 'Menonaktifkan menu (dipakai pesanan): ' . $item['name']);
             flash('info', 'Menu dipakai pada pesanan, jadi dinonaktifkan alih-alih dihapus.');
-            redirect('menu');
+            redirect('menus');
         }
         $this->deleteImage($item['image']);
         MenuItem::delete($id);
         log_activity('menu.delete', 'Menghapus menu: ' . $item['name']);
         flash('success', 'Menu berhasil dihapus.');
-        redirect('menu');
+        redirect('menus');
     }
 
     private function collect(): array
