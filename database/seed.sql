@@ -11,17 +11,29 @@
 -- ============================================================
 
 SET FOREIGN_KEY_CHECKS = 0;
-TRUNCATE TABLE activity_logs;
-TRUNCATE TABLE order_items;
-TRUNCATE TABLE orders;
-TRUNCATE TABLE reservations;
-TRUNCATE TABLE dining_tables;
-TRUNCATE TABLE menu_items;
-TRUNCATE TABLE categories;
-TRUNCATE TABLE role_permissions;
-TRUNCATE TABLE permissions;
-TRUNCATE TABLE users;
-TRUNCATE TABLE roles;
+-- Use DELETE (not TRUNCATE) so re-seeding works on hosts that reject
+-- TRUNCATE on tables referenced by a foreign key (MariaDB error #1701).
+DELETE FROM activity_logs;
+DELETE FROM order_items;
+DELETE FROM orders;
+DELETE FROM reservations;
+DELETE FROM dining_tables;
+DELETE FROM menu_items;
+DELETE FROM categories;
+DELETE FROM role_permissions;
+DELETE FROM permissions;
+DELETE FROM users;
+DELETE FROM roles;
+ALTER TABLE roles            AUTO_INCREMENT = 1;
+ALTER TABLE permissions      AUTO_INCREMENT = 1;
+ALTER TABLE users            AUTO_INCREMENT = 1;
+ALTER TABLE categories       AUTO_INCREMENT = 1;
+ALTER TABLE menu_items       AUTO_INCREMENT = 1;
+ALTER TABLE dining_tables    AUTO_INCREMENT = 1;
+ALTER TABLE reservations     AUTO_INCREMENT = 1;
+ALTER TABLE orders           AUTO_INCREMENT = 1;
+ALTER TABLE order_items      AUTO_INCREMENT = 1;
+ALTER TABLE activity_logs    AUTO_INCREMENT = 1;
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- ---------------- Roles ----------------
