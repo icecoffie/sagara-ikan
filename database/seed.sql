@@ -126,8 +126,9 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `is_active`) VALU
 (2, 'Sarden',   'sarden',   'Sarden dengan bumbu kaya rasa',        1),
 (3, 'Salmon',   'salmon',   'Salmon premium untuk hidangan mewah',  1),
 (4, 'Mackerel', 'mackerel', 'Mackerel gurih dengan beragam saus',   1),
-(5, 'Paket',    'paket',    'Paket hemat untuk berbagi',            1),
-(6, 'Minuman',  'minuman',  'Aneka minuman segar penyegar dahaga', 1);
+(5, 'Paket',     'paket',     'Paket hemat untuk berbagi',            1),
+(6, 'Minuman',   'minuman',   'Aneka minuman segar penyegar dahaga',  1),
+(7, 'Pelengkap', 'pelengkap', 'Pelengkap & produk kalengan khas Sagara', 1);
 
 -- ---------------- Menu items ----------------
 INSERT INTO `menu_items` (`id`, `name`, `category_id`, `price`, `description`, `image`, `is_available`) VALUES
@@ -143,10 +144,11 @@ INSERT INTO `menu_items` (`id`, `name`, `category_id`, `price`, `description`, `
 (10, 'Paket Salmon + Mackerel + Tuna',5,300000, 'Tiga ikan premium dalam satu paket',            '3.png',         1),
 (11, 'Paket Keluarga Komplit',       5, 350000, 'Paket besar untuk keluarga, semua favorit',     'all.png',       1),
 (12, 'Paket Hemat Berdua',           5, 150000, 'Pilihan hemat untuk makan berdua',              'all2.png',      1),
-(13, 'Es Teh Anget',                 6, 8000,   'Teh manis hangat, teman setia semua hidangan',  'drink_esteh.png', 1),
-(14, 'Es Jeruk Samudera',            6, 12000,  'Jeruk nipis segar dengan es, asam manis pas',   'drink_jeruk.png', 1),
-(15, 'Soda Gembira Laut',            6, 15000,  'Soda susu merah muda yang menyegarkan',         'drink_soda.png',  1),
-(16, 'Es Kopi Susu Pelaut',          6, 18000,  'Kopi susu gula aren dingin, pelepas penat',     'drink_kopi.png',  1);
+(13, 'Air Putih',                    6, 5000,   'Air mineral segar yang menyegarkan dahaga',     'airputih.jpeg',   1),
+(14, 'Es Teh Anget',                 6, 8000,   'Teh manis hangat, teman setia semua hidangan',  'estehanget.jpeg', 1),
+(15, 'Matcha',                       6, 20000,  'Matcha latte creamy dengan teh hijau premium',  'matcha.jpeg',     1),
+(16, 'Susu',                         6, 12000,  'Susu segar murni, nikmat disajikan dingin',     'susu.jpeg',       1),
+(17, 'Butter',                       7, 45000,  'Butter kalengan premium, creamy dan gurih',     'butter.jpeg',     1);
 
 -- ---------------- Dining tables ----------------
 INSERT INTO `dining_tables` (`id`, `table_number`, `capacity`, `location`, `status`) VALUES
