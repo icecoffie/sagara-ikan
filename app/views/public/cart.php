@@ -42,7 +42,7 @@
 
 <script>
 (function () {
-  var card = document.getElementById('keranjangCard');
+  var card = document.getElementById('cartCard');
   if (!card) return;
   var csrf = card.getAttribute('data-csrf');
   var base = card.getAttribute('data-url');
@@ -55,7 +55,7 @@
     });
   }
   function showEmpty() {
-    document.getElementById('keranjangWrap').innerHTML =
+    document.getElementById('cartWrap').innerHTML =
       '<div class="cart-card"><div class="cart-empty"><ion-icon name="cart-outline"></ion-icon>' +
       '<p style="margin:12px 0 18px;">Keranjangmu masih kosong.</p>' +
       '<a href="<?= url('menu') ?>" class="btn">Lihat Menu</a></div></div>';
@@ -70,7 +70,7 @@
       .then(function (d) {
         if (!d || !d.ok) return;
         setBadge(d.count);
-        document.getElementById('keranjangTotal').textContent = d.total;
+        document.getElementById('cartTotal').textContent = d.total;
         if (d.removed) {
           row.style.transition = 'opacity .25s, transform .25s';
           row.style.opacity = '0'; row.style.transform = 'translateX(-12px)';
