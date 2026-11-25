@@ -99,3 +99,19 @@ Untuk PaaS (bukan cPanel):
 5. `base_url` biarkan kosong (auto-detect). Buka URL yang diberikan platform = `https://sagara.msync.web.id`.
 
 > Jangan commit kredensial asli. Gunakan environment variables / secret manager platform.
+
+---
+
+## Cloudflare (DNS untuk msync.web.id)
+
+> Penting: aplikasi ini **PHP + MySQL**, jadi **tidak bisa di-host di Cloudflare Pages/Workers** (hanya static/JS). Cloudflare di sini berperan sebagai **DNS + proxy + SSL**; aplikasinya tetap berjalan di server PHP (cPanel/VPS).
+
+1. Siapkan hosting PHP untuk aplikasi (cPanel shared hosting sesuai panduan di atas, atau VPS dengan PHP 8 + MySQL). Catat **alamat IP** server tersebut.
+2. Masuk **Cloudflare → pilih domain `msync.web.id` → DNS → Records → Add record**:
+   - **Type**: `A` — **Name**: `sagara` — **IPv4**: `<IP server PHP kamu>` — **Proxy**: ON (awan oранye).
+   - (Jika host memberi hostname, pakai **CNAME** `sagara` → `host-kamu.tld` dengan Proxy ON.)
+3. **Cloudflare → SSL/TLS**: set mode **Full** (atau **Full (strict)** jika server punya sertifikat valid). Aktifkan **Always Use HTTPS**.
+4. Tunggu propagasi DNS, lalu buka **https://sagara.msync.web.id**.
+5. Di sisi server PHP, pastikan dokumen root subdomain mengarah ke folder `public_html` aplikasi (lihat langkah cPanel di atas).
+
+Jika kamu belum punya hosting PHP sama sekali, pilihan termurah: cPanel shared hosting yang mendukung PHP 8 + MySQL, lalu arahkan DNS-nya lewat Cloudflare seperti di atas.
