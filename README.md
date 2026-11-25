@@ -2,7 +2,7 @@
 
 Aplikasi restoran seafood **Sagara Ikan**: landing page modern + **pemesanan online tanpa login** untuk pelanggan, dan **panel manajemen (RBAC)** untuk staf. Dibangun dengan **PHP native (PHP 8.x) + MySQL (PDO)** tanpa framework, siap di-deploy ke **cPanel shared hosting**.
 
-- **Target deploy:** `https://sagara.msync.web.id`
+- **Target deploy:** `https://sagara.msync.my.id`
 - **Stack:** PHP 8 (zero-dependency untuk fitur inti), MySQL/MariaDB, Chart.js & Ionicons via CDN.
 
 ---
@@ -86,7 +86,7 @@ Buka **http://localhost:8000** (publik) dan **http://localhost:8000/index.php/lo
 
 ## Akun Demo
 
-Login staf: **http://localhost:8000/index.php/login** (atau `https://sagara.msync.web.id/index.php/login`).
+Login staf: **http://localhost:8000/index.php/login** (atau `https://sagara.msync.my.id/index.php/login`).
 
 | Role | Email | Password |
 |------|-------|----------|
@@ -111,7 +111,7 @@ Login staf: **http://localhost:8000/index.php/login** (atau `https://sagara.msyn
 
 ## Deploy
 
-Panduan lengkap cPanel (subdomain `sagara.msync.web.id`, upload, import DB, konfigurasi, verifikasi) ada di **[DEPLOYMENT.md](DEPLOYMENT.md)**.
+Panduan lengkap cPanel (subdomain `sagara.msync.my.id`, upload, import DB, konfigurasi, verifikasi) ada di **[DEPLOYMENT.md](DEPLOYMENT.md)**.
 
 Export PDF laporan bersifat opsional: `composer require dompdf/dompdf`. Tanpa Composer, CSV & cetak tetap berfungsi penuh.
 
