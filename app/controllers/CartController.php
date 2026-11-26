@@ -102,10 +102,16 @@ class CartController extends Controller
             flash('error', 'Keranjang masih kosong.');
             redirect('keranjang');
         }
+        $taxPct = (float) Config::get('tax_percent', 0);
+        $svcPct = (float) Config::get('service_percent', 0);
         View::renderPublic('public/checkout', array_merge($cart, [
-            'tables' => DiningTable::options(),
-            'errors' => [],
-            'old'    => [],
+            'tables'  => DiningTable::options(),
+            'errors'  => [],
+            'old'     => [],
+            'taxPct'  => $taxPct,
+            'svcPct'  => $svcPct,
+            'tax'     => round($cart['total'] * $taxPct / 100),
+            'service' => round($cart['total'] * $svcPct / 100),
         ]), 'Checkout');
     }
 
@@ -137,10 +143,16 @@ class CartController extends Controller
             $data['table_id'] = null;
         }
         if ($errors) {
+            $taxPct = (float) Config::get('tax_percent', 0);
+            $svcPct = (float) Config::get('service_percent', 0);
             View::renderPublic('public/checkout', array_merge($cart, [
-                'tables' => DiningTable::options(),
-                'errors' => $errors,
-                'old'    => $data,
+                'tables'  => DiningTable::options(),
+                'errors'  => $errors,
+                'old'     => $data,
+                'taxPct'  => $taxPct,
+                'svcPct'  => $svcPct,
+                'tax'     => round($cart['total'] * $taxPct / 100),
+                'service' => round($cart['total'] * $svcPct / 100),
             ]), 'Checkout');
             return;
         }
@@ -168,6 +180,11 @@ class CartController extends Controller
             ]);
         }
         Order::recalculate($orderId);
+        $voucher = trim((string) post('voucher_code'));
+        if ($voucher !== '') {
+            [$vok, $vmsg] = Order::applyVoucher($orderId, $voucher);
+            flash($vok ? 'success' : 'error', $vmsg);
+        }
         if ($data['table_id']) {
             Database::run("UPDATE dining_tables SET status='occupied' WHERE id=?", [$data['table_id']]);
         }

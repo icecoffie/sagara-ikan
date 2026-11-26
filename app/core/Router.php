@@ -23,6 +23,8 @@ class Router
         'table'       => 'TableController',
         'reservation' => 'ReservationController',
         'order'       => 'OrderController',
+        'kitchen'     => 'KitchenController',
+        'voucher'     => 'VoucherController',
         'user'        => 'UserController',
         'role'        => 'RoleController',
         'report'      => 'ReportController',

@@ -18,7 +18,13 @@
         <span><?= rupiah($it['subtotal']) ?></span>
       </div>
     <?php endforeach; ?>
-    <div style="display:flex;justify-content:space-between;margin-top:14px;font-weight:700;font-size:18px;">
+    <div style="margin-top:12px;font-size:13.5px;color:var(--muted);">
+      <div style="display:flex;justify-content:space-between;padding:3px 0;"><span>Subtotal</span><span><?= rupiah($order['subtotal']) ?></span></div>
+      <?php if ((float)$order['discount'] > 0): ?><div style="display:flex;justify-content:space-between;padding:3px 0;color:#157347;"><span>Diskon<?= $order['voucher_code'] ? ' ('.e($order['voucher_code']).')' : '' ?></span><span>&minus; <?= rupiah($order['discount']) ?></span></div><?php endif; ?>
+      <div style="display:flex;justify-content:space-between;padding:3px 0;"><span>Pajak</span><span><?= rupiah($order['tax']) ?></span></div>
+      <div style="display:flex;justify-content:space-between;padding:3px 0;"><span>Service</span><span><?= rupiah($order['service_charge']) ?></span></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:10px;border-top:1px solid var(--line);font-weight:800;font-size:19px;">
       <span>Total</span><span><?= rupiah($order['total']) ?></span>
     </div>
   </div>

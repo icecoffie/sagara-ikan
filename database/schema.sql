@@ -103,6 +103,7 @@ CREATE TABLE `menu_items` (
     `description`  TEXT DEFAULT NULL,
     `image`        VARCHAR(255) DEFAULT NULL,
     `is_available` TINYINT(1) NOT NULL DEFAULT 1,
+    `stock`        INT DEFAULT NULL,  -- NULL = unlimited; 0 = habis
     `created_at`   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
@@ -158,6 +159,12 @@ CREATE TABLE `orders` (
     `customer_name`  VARCHAR(120) DEFAULT NULL,
     `customer_phone` VARCHAR(30) DEFAULT NULL,
     `status`       ENUM('open','paid','cancelled') NOT NULL DEFAULT 'open',
+    `kitchen_status` ENUM('queued','cooking','ready','served') NOT NULL DEFAULT 'queued',
+    `subtotal`       DECIMAL(12,2) NOT NULL DEFAULT 0,
+    `discount`       DECIMAL(12,2) NOT NULL DEFAULT 0,
+    `tax`            DECIMAL(12,2) NOT NULL DEFAULT 0,
+    `service_charge` DECIMAL(12,2) NOT NULL DEFAULT 0,
+    `voucher_code`   VARCHAR(40) DEFAULT NULL,
     `total`        DECIMAL(12,2) NOT NULL DEFAULT 0,
     `paid_at`      DATETIME DEFAULT NULL,
     `created_at`   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -188,6 +195,24 @@ CREATE TABLE `order_items` (
         REFERENCES `orders` (`id`) ON DELETE CASCADE,
     CONSTRAINT `fk_oi_menu` FOREIGN KEY (`menu_item_id`)
         REFERENCES `menu_items` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------
+--  Promotions: vouchers
+-- ------------------------------------------------------------
+
+CREATE TABLE `vouchers` (
+    `id`         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `code`       VARCHAR(40) NOT NULL,
+    `description` VARCHAR(150) DEFAULT NULL,
+    `type`       ENUM('percent','amount') NOT NULL DEFAULT 'amount',
+    `value`      DECIMAL(12,2) NOT NULL DEFAULT 0,
+    `min_total`  DECIMAL(12,2) NOT NULL DEFAULT 0,
+    `is_active`  TINYINT(1) NOT NULL DEFAULT 1,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uq_voucher_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ------------------------------------------------------------

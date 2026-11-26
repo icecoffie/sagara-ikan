@@ -51,6 +51,15 @@
     </table>
     <hr>
     <table>
+      <tr><td>Subtotal</td><td class="r"><?= rupiah($order['subtotal']) ?></td></tr>
+      <?php if ((float)$order['discount'] > 0): ?>
+      <tr><td>Diskon<?= $order['voucher_code'] ? ' ('.e($order['voucher_code']).')' : '' ?></td><td class="r">-<?= rupiah($order['discount']) ?></td></tr>
+      <?php endif; ?>
+      <tr><td>Pajak</td><td class="r"><?= rupiah($order['tax']) ?></td></tr>
+      <tr><td>Service</td><td class="r"><?= rupiah($order['service_charge']) ?></td></tr>
+    </table>
+    <hr>
+    <table>
       <tr class="total"><td>TOTAL</td><td class="r"><?= rupiah($order['total']) ?></td></tr>
     </table>
     <hr>

@@ -5,7 +5,7 @@ class MenuItem extends Model
 {
     protected static string $table = 'menu_items';
     protected static array $fillable = [
-        'name', 'category_id', 'price', 'description', 'image', 'is_available',
+        'name', 'category_id', 'price', 'description', 'image', 'is_available', 'stock',
     ];
 
     public static function publicMenu(): array
@@ -14,7 +14,7 @@ class MenuItem extends Model
             'SELECT m.*, c.name AS category_name, c.slug AS category_slug
                FROM menu_items m
                JOIN categories c ON c.id = m.category_id
-              WHERE m.is_available = 1 AND c.is_active = 1
+              WHERE m.is_available = 1 AND c.is_active = 1 AND (m.stock IS NULL OR m.stock > 0)
               ORDER BY c.name ASC, m.name ASC'
         );
     }
@@ -25,8 +25,23 @@ class MenuItem extends Model
             'SELECT m.*, c.name AS category_name
                FROM menu_items m
                JOIN categories c ON c.id = m.category_id
-              WHERE m.is_available = 1
+              WHERE m.is_available = 1 AND (m.stock IS NULL OR m.stock > 0)
               ORDER BY c.name ASC, m.name ASC'
+        );
+    }
+
+    /** True if the item can still be ordered (available + in stock). */
+    public static function orderable(array $m): bool
+    {
+        return (int) $m['is_available'] === 1 && ($m['stock'] === null || (int) $m['stock'] > 0);
+    }
+
+    /** Reduce stock for a sold item (no-op when stock is NULL = unlimited). */
+    public static function reduceStock(int $id, int $qty): void
+    {
+        Database::run(
+            'UPDATE menu_items SET stock = GREATEST(0, stock - ?) WHERE id = ? AND stock IS NOT NULL',
+            [max(0, $qty), $id]
         );
     }
 

@@ -38,6 +38,11 @@ $val = fn($k, $d = '') => e($item[$k] ?? $d);
             <input type="checkbox" name="is_available" value="1" style="width:auto" <?= (!isset($item['is_available']) || $item['is_available']) ? 'checked' : '' ?>> Tersedia untuk dipesan
           </label>
         </div>
+        <div class="field">
+          <label for="stock">Stok</label>
+          <input type="number" id="stock" name="stock" min="0" value="<?= e($item['stock'] ?? '') ?>" placeholder="Kosongkan = tak terbatas">
+          <span class="hint">Kosong = stok tak terbatas. 0 = habis (otomatis disembunyikan dari menu).</span>
+        </div>
         <div class="field full">
           <label for="description">Deskripsi</label>
           <textarea id="description" name="description" rows="3"><?= $val('description') ?></textarea>

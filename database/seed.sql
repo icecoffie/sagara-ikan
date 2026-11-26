@@ -75,7 +75,13 @@ INSERT INTO `permissions` (`name`, `slug`, `resource`, `action`) VALUES
 ('Hapus Pengguna',       'user.delete',       'user',        'delete'),
 ('Lihat Role & Izin',    'role.view',         'role',        'view'),
 ('Kelola Role & Izin',   'role.update',       'role',        'update'),
-('Lihat Log Aktivitas',  'log.view',          'log',         'view');
+('Lihat Log Aktivitas',  'log.view',          'log',         'view'),
+('Lihat Dapur',          'kitchen.view',      'kitchen',     'view'),
+('Ubah Status Dapur',    'kitchen.update',    'kitchen',     'update'),
+('Lihat Voucher',        'voucher.view',      'voucher',     'view'),
+('Tambah Voucher',       'voucher.create',    'voucher',     'create'),
+('Ubah Voucher',         'voucher.update',    'voucher',     'update'),
+('Hapus Voucher',        'voucher.delete',    'voucher',     'delete');
 
 -- ---------------- Role ↔ Permission ----------------
 -- Admin: every permission
@@ -91,6 +97,8 @@ SELECT 2, p.id FROM permissions p WHERE p.slug IN (
   'table.view','table.create','table.update','table.delete',
   'reservation.view','reservation.create','reservation.update','reservation.delete',
   'order.view',
+  'kitchen.view','kitchen.update',
+  'voucher.view','voucher.create','voucher.update','voucher.delete',
   'report.view','report.export'
 );
 
@@ -100,7 +108,8 @@ SELECT 3, p.id FROM permissions p WHERE p.slug IN (
   'dashboard.view',
   'menu.view',
   'table.view',
-  'order.view','order.create','order.update','order.pay'
+  'order.view','order.create','order.update','order.pay',
+  'kitchen.view','kitchen.update'
 );
 
 -- Pelayan: take/update orders, manage reservations, change table status
@@ -110,7 +119,8 @@ SELECT 4, p.id FROM permissions p WHERE p.slug IN (
   'menu.view',
   'table.view','table.update',
   'reservation.view','reservation.create','reservation.update','reservation.delete',
-  'order.view','order.create','order.update'
+  'order.view','order.create','order.update',
+  'kitchen.view','kitchen.update'
 );
 
 -- ---------------- Users ----------------
@@ -207,3 +217,19 @@ INSERT INTO `activity_logs` (`user_id`, `action`, `detail`, `ip_address`, `creat
 (3, 'order.pay', 'Pembayaran pesanan ORD-0006',     '127.0.0.1', DATE_SUB(NOW(), INTERVAL 2 DAY)),
 (2, 'menu.create', 'Menambah menu baru',            '127.0.0.1', DATE_SUB(NOW(), INTERVAL 1 DAY)),
 (4, 'reservation.create', 'Reservasi untuk Rani Pratiwi', '127.0.0.1', NOW());
+
+-- ---------------- Vouchers ----------------
+INSERT INTO `vouchers` (`code`, `description`, `type`, `value`, `min_total`, `is_active`) VALUES
+('SAGARA10', 'Diskon 10% semua menu',                      'percent', 10,    0,      1),
+('HEMAT25K', 'Potongan Rp25.000 (min. belanja Rp100.000)', 'amount',  25000, 100000, 1),
+('NEWBIE',   'Diskon 15% untuk pelanggan baru',            'percent', 15,    50000,  1);
+
+-- ---------------- Stock demo (NULL = tak terbatas) ----------------
+UPDATE `menu_items` SET `stock` = 25 WHERE `id` = 5;   -- Salmon Butter Lemon
+UPDATE `menu_items` SET `stock` = 3  WHERE `id` = 10;  -- stok menipis
+UPDATE `menu_items` SET `stock` = 0  WHERE `id` = 9;   -- habis (contoh)
+UPDATE `menu_items` SET `stock` = 40 WHERE `id` IN (13,14,15,16); -- minuman
+
+-- ---------------- Normalisasi order lama (subtotal/kitchen) ----------------
+UPDATE `orders` SET `subtotal` = `total` WHERE `subtotal` = 0;
+UPDATE `orders` SET `kitchen_status` = 'served' WHERE `status` = 'paid';

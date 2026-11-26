@@ -34,7 +34,11 @@
               <td><b><?= e($m['name']) ?></b></td>
               <td><?= e($m['category_name']) ?></td>
               <td><?= rupiah($m['price']) ?></td>
-              <td><span class="badge <?= $m['is_available'] ? 'green' : 'gray' ?>"><?= $m['is_available'] ? 'Tersedia' : 'Habis' ?></span></td>
+              <td>
+                <?php $soldout = $m['stock'] !== null && (int)$m['stock'] <= 0; ?>
+                <span class="badge <?= (!$m['is_available'] || $soldout) ? 'red' : 'green' ?>"><?= $soldout ? 'Habis' : ($m['is_available'] ? 'Tersedia' : 'Nonaktif') ?></span>
+                <?php if ($m['stock'] !== null): ?><div style="font-size:12px;color:var(--clr-muted);margin-top:3px;">Stok: <?= (int)$m['stock'] ?></div><?php else: ?><div style="font-size:12px;color:var(--clr-muted);margin-top:3px;">∞</div><?php endif; ?>
+              </td>
               <td class="actions">
                 <?php if (can('menu.update')): ?><a class="btn secondary sm" href="<?= url('menus/edit/' . $m['id']) ?>"><ion-icon name="create-outline"></ion-icon></a><?php endif; ?>
                 <?php if (can('menu.delete')): ?>

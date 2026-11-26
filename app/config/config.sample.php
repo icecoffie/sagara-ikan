@@ -24,5 +24,9 @@ return [
 
     'upload_dir' => 'assets/uploads',
 
+    // Pajak (PPN) & service charge dalam persen, diterapkan saat pembayaran.
+    'tax_percent'     => 10,
+    'service_percent' => 5,
+
     'debug' => false,
 ];

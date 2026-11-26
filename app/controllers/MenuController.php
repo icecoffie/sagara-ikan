@@ -104,6 +104,7 @@ class MenuController extends Controller
             'price'        => (float) str_replace(['.', ','], ['', '.'], (string) post('price')),
             'description'  => trim((string) post('description')),
             'is_available' => post('is_available') ? 1 : 0,
+            'stock'        => (post('stock') === '' || post('stock') === null) ? null : max(0, (int) post('stock')),
         ];
     }
 

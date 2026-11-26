@@ -63,14 +63,20 @@ class OrderController extends Controller
         $menuId = (int) post('menu_item_id');
         $qty = max(1, (int) post('qty', 1));
         $menu = MenuItem::find($menuId);
-        if (!$menu) {
-            flash('error', 'Menu tidak ditemukan.');
+        if (!$menu || !MenuItem::orderable($menu)) {
+            flash('error', 'Menu tidak tersedia / stok habis.');
             redirect('order/show/' . $id);
         }
 
         $existing = Database::first('SELECT * FROM order_items WHERE order_id=? AND menu_item_id=? LIMIT 1', [$id, $menuId]);
+        $currentQty = $existing ? (int) $existing['qty'] : 0;
+        if ($menu['stock'] !== null && ($currentQty + $qty) > (int) $menu['stock']) {
+            flash('error', 'Stok ' . $menu['name'] . ' hanya ' . (int) $menu['stock'] . '.');
+            redirect('order/show/' . $id);
+        }
+
         if ($existing) {
-            $newQty = (int) $existing['qty'] + $qty;
+            $newQty = $currentQty + $qty;
             OrderItem::update((int) $existing['id'], [
                 'qty' => $newQty, 'subtotal' => $newQty * (float) $existing['price'],
             ]);
@@ -101,6 +107,37 @@ class OrderController extends Controller
         redirect('order/show/' . $order['id']);
     }
 
+    public function voucher($id): void
+    {
+        require_permission('order.update');
+        $this->guardPost();
+        $id = $this->intId($id);
+        $order = Order::find($id) ?? abort(404);
+        $this->ensureOpen($order);
+        $code = trim((string) post('voucher_code'));
+        if ($code === '') {
+            Order::clearDiscount($id);
+            flash('info', 'Diskon dihapus.');
+            redirect('order/show/' . $id);
+        }
+        [$ok, $msg] = Order::applyVoucher($id, $code);
+        flash($ok ? 'success' : 'error', $msg);
+        redirect('order/show/' . $id);
+    }
+
+    public function discount($id): void
+    {
+        require_permission('order.update');
+        $this->guardPost();
+        $id = $this->intId($id);
+        $order = Order::find($id) ?? abort(404);
+        $this->ensureOpen($order);
+        $amount = (float) str_replace(['.', ','], ['', '.'], (string) post('discount'));
+        Order::setManualDiscount($id, $amount);
+        flash('success', 'Diskon manual diterapkan.');
+        redirect('order/show/' . $id);
+    }
+
     public function pay($id): void
     {
         require_permission('order.pay');
@@ -109,15 +146,18 @@ class OrderController extends Controller
         $order = Order::find($id) ?? abort(404);
         $this->ensureOpen($order);
         $total = Order::recalculate($id);
-        if ($total <= 0) {
+        if ((float) Database::scalar('SELECT COALESCE(SUM(subtotal),0) FROM order_items WHERE order_id=?', [$id]) <= 0) {
             flash('error', 'Tidak dapat membayar pesanan kosong.');
             redirect('order/show/' . $id);
         }
-        Database::run("UPDATE orders SET status='paid', paid_at=NOW() WHERE id=?", [$id]);
+        Database::run("UPDATE orders SET status='paid', kitchen_status='served', paid_at=NOW() WHERE id=?", [$id]);
+        foreach (Database::all('SELECT menu_item_id, qty FROM order_items WHERE order_id=? AND menu_item_id IS NOT NULL', [$id]) as $it) {
+            MenuItem::reduceStock((int) $it['menu_item_id'], (int) $it['qty']);
+        }
         if ($order['table_id']) {
             Database::run("UPDATE dining_tables SET status='available' WHERE id=?", [$order['table_id']]);
         }
-        log_activity('order.pay', 'Pembayaran pesanan ' . $order['order_number']);
+        log_activity('order.pay', 'Pembayaran pesanan ' . $order['order_number'] . ' (' . rupiah($total) . ')');
         flash('success', 'Pembayaran berhasil. Struk siap dicetak.');
         redirect('order/receipt/' . $id);
     }
@@ -155,6 +195,19 @@ class OrderController extends Controller
         require_permission('order.view');
         $order = Order::withDetails($this->intId($id)) ?? abort(404);
         $this->raw('order/receipt', ['order' => $order, 'appName' => Config::get('app_name', 'Sagara Resto')]);
+    }
+
+    /** JSON: open customer (online) orders for the live cashier notifier. */
+    public function newOrders(): void
+    {
+        require_permission('order.view');
+        $rows = Database::all(
+            "SELECT id, order_number, customer_name, total
+               FROM orders
+              WHERE source='customer' AND status='open'
+              ORDER BY created_at DESC LIMIT 20"
+        );
+        $this->json(['count' => count($rows), 'orders' => $rows]);
     }
 
     private function ensureOpen(array $order): void

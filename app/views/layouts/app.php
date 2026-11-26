@@ -12,12 +12,14 @@ $nav = [
   ],
   'Operasional' => [
     ['order', 'Pesanan', 'receipt-outline', 'order.view'],
+    ['kitchen', 'Dapur', 'flame-outline', 'kitchen.view'],
     ['reservation', 'Reservasi', 'calendar-outline', 'reservation.view'],
     ['table', 'Meja', 'restaurant-outline', 'table.view'],
   ],
   'Katalog' => [
     ['menus', 'Menu', 'fast-food-outline', 'menu.view'],
     ['category', 'Kategori', 'pricetags-outline', 'category.view'],
+    ['voucher', 'Voucher', 'ticket-outline', 'voucher.view'],
   ],
   'Analitik' => [
     ['report', 'Laporan', 'bar-chart-outline', 'report.view'],
@@ -54,8 +56,8 @@ $flashes = flash();
         ?>
         <div class="nav-group"><?= e($group) ?></div>
         <?php foreach ($visible as $l): [$route, $label, $icon] = $l; ?>
-          <a class="nav-link <?= $seg === $route ? 'active' : '' ?>" href="<?= url($route) ?>">
-            <ion-icon name="<?= e($icon) ?>"></ion-icon><span><?= e($label) ?></span>
+          <a class="nav-link <?= $seg === $route ? 'active' : '' ?>" href="<?= url($route) ?>" data-route="<?= e($route) ?>">
+            <ion-icon name="<?= e($icon) ?>"></ion-icon><span><?= e($label) ?></span><span class="nav-badge" data-badge="<?= e($route) ?>" hidden></span>
           </a>
         <?php endforeach; ?>
       <?php endforeach; ?>
@@ -88,6 +90,38 @@ $flashes = flash();
     </main>
   </div>
 </div>
+<?php if (can('order.view')): ?>
+<script>
+(function () {
+  var url = '<?= url('order/newOrders') ?>';
+  var badge = document.querySelector('.nav-badge[data-badge="order"]');
+  var seen = null;
+  function toast(msg) {
+    var t = document.createElement('div'); t.className = 'admin-toast';
+    t.innerHTML = '<ion-icon name="notifications-outline"></ion-icon> ' + msg;
+    document.body.appendChild(t);
+    setTimeout(function(){ t.classList.add('hide'); }, 5000);
+    setTimeout(function(){ t.remove(); }, 5400);
+  }
+  function poll(first) {
+    fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d) return;
+        if (badge) { if (d.count > 0) { badge.textContent = d.count; badge.hidden = false; } else { badge.hidden = true; } }
+        var ids = d.orders.map(function(o){ return o.id; });
+        if (seen === null) { seen = ids; return; }
+        d.orders.forEach(function(o){
+          if (seen.indexOf(o.id) === -1) { toast('Pesanan online baru <b>' + o.order_number + '</b> — ' + (o.customer_name || 'Pelanggan')); }
+        });
+        seen = ids;
+      }).catch(function(){});
+  }
+  poll(true);
+  setInterval(poll, 20000);
+})();
+</script>
+<?php endif; ?>
 <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <?= $pageScripts ?? '' ?>
