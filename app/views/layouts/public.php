@@ -16,6 +16,7 @@
       <nav class="nav-links" id="navLinks">
         <a href="<?= url('') ?>">Beranda</a>
         <a href="<?= url('menu') ?>">Menu</a>
+        <a href="<?= url('tentang') ?>">Tentang</a>
         <a href="<?= url('pantau') ?>">Lacak Pesanan</a>
         <a href="<?= url('login') ?>" class="btn nav-login-mobile">Login Staf</a>
       </nav>

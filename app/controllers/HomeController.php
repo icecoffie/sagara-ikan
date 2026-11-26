@@ -20,4 +20,11 @@ class HomeController extends Controller
             'cartCount'  => cart_count(),
         ]);
     }
+
+    public function about(): void
+    {
+        View::renderPublic('public/about', [
+            'appName' => Config::get('app_name', 'Sagara Resto'),
+        ], 'Tentang Kami');
+    }
 }

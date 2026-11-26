@@ -90,12 +90,21 @@
       <div class="reveal d1">
         <span class="pill">Kenal Sagara</span>
         <h2 class="sec-title">Memadukan tradisi &amp; inovasi rasa laut</h2>
+        <p class="sec-sub">
+          Resto Sagara Ikan lahir dari kecintaan pada hasil laut nusantara. Berawal dari warung kecil di
+          tepi pantai, kami tumbuh menjadi restoran seafood yang mengutamakan kesegaran, kebersihan, dan
+          keramahan. Setiap pagi ikan tuna, sarden, salmon, dan mackerel kami pilih langsung dari nelayan lokal.
+        </p>
         <ul class="about-list">
           <li><ion-icon name="checkmark-circle-outline"></ion-icon> Ikan segar pilihan, disortir setiap pagi.</li>
           <li><ion-icon name="checkmark-circle-outline"></ion-icon> Teknik masak presisi renyah di luar, juicy di dalam.</li>
+          <li><ion-icon name="checkmark-circle-outline"></ion-icon> Resep warisan keluarga dengan sentuhan modern.</li>
           <li><ion-icon name="checkmark-circle-outline"></ion-icon> Suasana hangat, bersih, dan berkelas.</li>
         </ul>
-        <a href="#menu" class="btn ghost">Jelajahi Menu</a>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="<?= url('tentang') ?>" class="btn">Selengkapnya <ion-icon name="arrow-forward-outline"></ion-icon></a>
+          <a href="#menu" class="btn ghost">Jelajahi Menu</a>
+        </div>
       </div>
     </div>
   </section>

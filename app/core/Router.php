@@ -12,6 +12,7 @@ class Router
         'dashboard'   => ['DashboardController', 'index'],
         'revenue-data'=> ['DashboardController', 'revenueData'],
         'pantau'      => ['CartController', 'track'],
+        'tentang'     => ['HomeController', 'about'],
     ];
 
     private array $resources = [
