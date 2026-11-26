@@ -31,7 +31,21 @@
             <td><b><?= e($t['table_number']) ?></b></td>
             <td><?= (int)$t['capacity'] ?> orang</td>
             <td><?= e(ucfirst($t['location'])) ?></td>
-            <td><span class="badge <?= $stBadge[$t['status']] ?? 'gray' ?>"><?= e(ucfirst($t['status'])) ?></span></td>
+            <td>
+              <?php if (can('table.update')): ?>
+                <form method="post" action="<?= url('table/setStatus/' . $t['id']) ?>" class="status-quick">
+                  <?= Csrf::field() ?>
+                  <span class="status-dot <?= $stBadge[$t['status']] ?? 'gray' ?>"></span>
+                  <select name="status" onchange="this.form.submit()" class="status-select st-<?= $stBadge[$t['status']] ?? 'gray' ?>">
+                    <?php foreach (['available'=>'Tersedia','occupied'=>'Terisi','reserved'=>'Direservasi'] as $k=>$v): ?>
+                      <option value="<?= $k ?>" <?= $t['status']===$k?'selected':'' ?>><?= $v ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </form>
+              <?php else: ?>
+                <span class="badge <?= $stBadge[$t['status']] ?? 'gray' ?>"><?= e(ucfirst($t['status'])) ?></span>
+              <?php endif; ?>
+            </td>
             <td class="actions">
               <?php if (can('table.update')): ?><a class="btn secondary sm" href="<?= url('table/edit/' . $t['id']) ?>"><ion-icon name="create-outline"></ion-icon></a><?php endif; ?>
               <?php if (can('table.delete')): ?>

@@ -68,6 +68,23 @@ class TableController extends Controller
         redirect('table');
     }
 
+    public function setStatus($id): void
+    {
+        require_permission('table.update');
+        $this->guardPost();
+        $id = $this->intId($id);
+        $item = DiningTable::find($id) ?? abort(404);
+        $status = post('status');
+        if (!in_array($status, $this->statuses, true)) {
+            flash('error', 'Status meja tidak valid.');
+            redirect('table');
+        }
+        DiningTable::update($id, ['status' => $status]);
+        log_activity('table.update', 'Status meja ' . $item['table_number'] . ' -> ' . $status);
+        flash('success', 'Status meja ' . $item['table_number'] . ' diperbarui.');
+        redirect('table');
+    }
+
     public function delete($id): void
     {
         require_permission('table.delete');
