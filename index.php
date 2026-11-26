@@ -1,10 +1,11 @@
 <?php
 
 define('SAGARA_APP', true);
+define('FRONT_PATH', __DIR__);
 
 $candidates = [
-    dirname(__DIR__) . '/app/bootstrap.php', 
-    __DIR__ . '/app/bootstrap.php',          
+    __DIR__ . '/app/bootstrap.php',          // flattened: app/ next to index.php (docroot = root)
+    dirname(__DIR__) . '/app/bootstrap.php',  // app/ sits above the webroot (public_html layout)
 ];
 
 foreach ($candidates as $bootstrap) {

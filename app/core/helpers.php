@@ -200,7 +200,7 @@ function order_number(): string
 function menu_image_url(?string $image): string
 {
     if ($image) {
-        $base = ROOT_PATH . '/public_html/';
+        $base = PUBLIC_PATH . '/';
         if (is_file($base . 'assets/uploads/' . $image)) {
             return asset('assets/uploads/' . $image);
         }

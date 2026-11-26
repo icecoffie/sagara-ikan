@@ -6,9 +6,14 @@
 composer.lock
 
 # User-uploaded content
-/public_html/assets/uploads/*
-!/public_html/assets/uploads/.gitkeep
-!/public_html/assets/uploads/.htaccess
+/assets/uploads/*
+!/assets/uploads/.gitkeep
+!/assets/uploads/.htaccess
+
+# Deploy artifacts (don't commit the zip/logs created on the server)
+DEPLOYMENT.zip
+error_log
+php_errorlog
 
 # OS / editor noise
 .DS_Store

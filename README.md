@@ -42,12 +42,14 @@ Aplikasi restoran seafood **Sagara Ikan**: landing page modern + **pemesanan onl
 
 ## Struktur Folder
 
+Semua file ada dalam **satu folder** (root = docroot). Tinggal drop seluruh isi ke folder subdomain.
+
 ```
-public_html/            # webroot (docroot subdomain diarahkan ke sini)
-  index.php             # front controller
-  .htaccess             # routing + proteksi + hardening
-  assets/               # css (modern.css, app.css), js, gambar, uploads/
-app/                    # kode aplikasi (di luar webroot = lebih aman)
+index.php               # front controller (di root/docroot)
+.htaccess               # routing + proteksi + hardening
+assets/                 # css (modern.css, app.css), js, gambar, uploads/
+style.css               # stylesheet landing lama
+app/                    # kode aplikasi (diproteksi .htaccess + guard SAGARA_APP)
   bootstrap.php
   config/               # config.php (git-ignored), config.sample.php
   core/                 # Database, Auth, Csrf, Router, Controller, Model, View, helpers
@@ -58,7 +60,7 @@ database/
 docs/                   # dokumentasi (.docx) + generator + screenshots
 ```
 
-> Aplikasi tetap jalan jika seluruh isi diupload ke dalam `public_html` (layout flattened) — `index.php` mencari `app/` di dua lokasi, dan `.htaccess` memblokir akses langsung ke `app/`, `database/`, dan file sensitif.
+> `index.php` mencari `app/` di root (`./app`) atau satu tingkat di atas (`../app`), jadi tetap jalan baik flattened (docroot = root) maupun bila `app/` ditaruh di atas webroot. `.htaccess` memblokir akses langsung ke `app/`, `database/`, dan `*.sql`; file konfigurasi juga dijaga konstanta `SAGARA_APP`.
 
 ---
 
@@ -76,8 +78,8 @@ mysql -u root sagara_resto < database/seed.sql
 cp app/config/config.sample.php app/config/config.php
 #   edit app/config/config.php -> sesuaikan host/name/user/pass DB
 
-# 3. Jalankan
-php -S localhost:8000 -t public_html
+# 3. Jalankan (serve dari root)
+php -S localhost:8000
 ```
 
 Buka **http://localhost:8000** (publik) dan **http://localhost:8000/index.php/login** (staf).

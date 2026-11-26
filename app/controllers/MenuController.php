@@ -142,7 +142,7 @@ class MenuController extends Controller
             $errors['image'] = 'Format gambar harus JPG, PNG, WEBP, atau GIF.';
             return null;
         }
-        $dir = ROOT_PATH . '/public_html/' . Config::get('upload_dir', 'assets/uploads');
+        $dir = PUBLIC_PATH . '/' . Config::get('upload_dir', 'assets/uploads');
         if (!is_dir($dir)) {
             @mkdir($dir, 0755, true);
         }
@@ -159,7 +159,7 @@ class MenuController extends Controller
         if (!$image) {
             return;
         }
-        $path = ROOT_PATH . '/public_html/' . Config::get('upload_dir', 'assets/uploads') . '/' . $image;
+        $path = PUBLIC_PATH . '/' . Config::get('upload_dir', 'assets/uploads') . '/' . $image;
         if (is_file($path)) {
             @unlink($path);
         }

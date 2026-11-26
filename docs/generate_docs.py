@@ -338,7 +338,7 @@ def build_docx(tables, roles, perms, role_perms, shots_ok, base_url):
         for cmd in [
             "pip install python-docx playwright",
             "python -m playwright install chromium",
-            "php -S localhost:8000 -t public_html   # terminal terpisah",
+            "php -S localhost:8000   # terminal terpisah",
             "python docs/generate_docs.py --base-url http://localhost:8000",
         ]:
             doc.add_paragraph(cmd, style="List Bullet")

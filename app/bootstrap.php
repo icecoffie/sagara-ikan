@@ -2,8 +2,10 @@
 
 if (!defined('SAGARA_APP')) { http_response_code(403); exit('Forbidden'); }
 
-define('APP_PATH', __DIR__);                 
-define('ROOT_PATH', dirname(__DIR__));       
+define('APP_PATH', __DIR__);
+define('ROOT_PATH', dirname(__DIR__));
+// Web root (where index.php + assets live). Flattened: = ROOT_PATH; public_html layout: = ROOT_PATH/public_html.
+define('PUBLIC_PATH', defined('FRONT_PATH') ? FRONT_PATH : ROOT_PATH);
 
 spl_autoload_register(function (string $class): void {
     foreach (['core', 'controllers', 'models'] as $dir) {
