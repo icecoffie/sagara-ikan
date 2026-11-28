@@ -227,7 +227,8 @@ table.data td.actions { white-space: nowrap; text-align: right; }
 .kempty { text-align: center; color: var(--clr-muted); padding: 24px; font-size: 14px; }
 
 /* Nav badge + admin toast (live notifier) */
-.nav-badge { margin-left: auto; background: var(--clr-danger); color: #fff; font-size: 11px; font-weight: 700; min-width: 20px; height: 20px; border-radius: 10px; display: grid; place-items: center; padding: 0 6px; }
+.nav-badge { margin-left: auto; background: var(--clr-primary); color: #fff; font-size: 11px; font-weight: 700; min-width: 19px; height: 19px; line-height: 1; border-radius: 10px; display: grid; place-items: center; padding: 0 6px; box-shadow: 0 0 0 2px rgba(42,167,255,.22), 0 2px 6px rgba(11,36,71,.18); }
+.nav-badge[hidden] { display: none; }
 .sidebar a.nav-link { position: relative; }
 .admin-toast { position: fixed; top: 80px; right: 24px; z-index: 999; background: var(--clr-secondary); color: #fff; padding: 13px 18px; border-radius: 12px; box-shadow: 0 14px 34px rgba(11,36,71,.3); font-size: 14px; display: flex; align-items: center; gap: 8px; max-width: 340px; transition: opacity .4s, transform .4s; }
 .admin-toast ion-icon { font-size: 20px; color: var(--clr-primary); }

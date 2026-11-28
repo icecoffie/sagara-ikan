@@ -20,7 +20,7 @@ function base_url(): string
 function url(string $path = ''): string
 {
     $path = ltrim($path, '/');
-    return base_url() . '/index.php' . ($path === '' ? '' : '/' . $path);
+    return base_url() . ($path === '' ? '/' : '/' . $path);
 }
 
 function asset(string $path): string
